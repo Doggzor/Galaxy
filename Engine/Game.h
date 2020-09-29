@@ -29,6 +29,8 @@
 #include "Vec2.h"
 #include "Space.h"
 #include "img.h"
+#include"Defender.h"
+
 
 class Game
 {
@@ -57,5 +59,6 @@ private:
 	//Testing purposes:
 	int x = 400;
 	int y = 300;
+	Defender def;
 
 };
