@@ -166,6 +166,7 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Numbers.cpp" />
+    <ClCompile Include="RectF.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
