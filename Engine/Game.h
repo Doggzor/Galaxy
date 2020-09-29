@@ -27,6 +27,8 @@
 #include "rng.h"
 #include "FrameTimer.h"
 #include "Vec2.h"
+#include "Space.h"
+#include "img.h"
 
 class Game
 {
@@ -37,7 +39,7 @@ public:
 	void Go();
 private:
 	void ComposeFrame();
-	void UpdateModel();
+	void UpdateModel(float dt);
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -47,6 +49,13 @@ private:
 	/********************************/
 	/*  User Variables              */
     FrameTimer ft;
+	float fWorldSpeed = 180.0f;
+	Space space;
 	/********************************/
-	int test; 
+
+
+	//Testing purposes:
+	int x = 400;
+	int y = 300;
+
 };

@@ -1,23 +1,31 @@
 #pragma once
-#include"Graphics.h"
+#include "Graphics.h"
+#include "rng.h"
 
 class Space
 {
+private:
+	class Star
+	{
+	public:
+		Star() = default;
+		Star(float fSpeed, Color c, Graphics& gfx);
+		void Draw(Graphics& gfx);
+		void Update(float dt, Graphics& gfx);
 
+	private:
+		float x;
+		float y;
+		Color c;
+		float fSpeed;
+	};
 public:
-
-	Space(float x_in,float y_in,float speed_in,int yelow_in);
+	Space(float fSpeed, Graphics& gfx);
 	void Draw(Graphics& gfx);
-	void Update();
-	void Respown();
-	bool isEdgeOfWorld();
+	void Update(float dt, Graphics& gfx);
 
 private:
-
-	float x;
-	float y;
-	float speed;
-	int yelow;
-
+	static constexpr int nStars = 1500;
+	Star stars[nStars];
 };
 
