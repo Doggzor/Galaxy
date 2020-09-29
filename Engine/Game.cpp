@@ -24,23 +24,47 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+    space(fWorldSpeed, gfx)
 {
 }
 
 void Game::Go()
 {
 	gfx.BeginFrame();
-	UpdateModel();
+    float ElapsedTime = ft.Mark();
+    while (ElapsedTime > 0.0f)
+    {
+        const float dt = std::min(0.0025f, ElapsedTime);
+        UpdateModel(dt);
+        ElapsedTime -= dt;
+    }
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
+    space.Update(dt, gfx);
+
+    /*****************************TEST************************************/
+    /**/                                                               /**/
+    /**/   if (wnd.kbd.KeyIsPressed(VK_LEFT)) x -= 1;                  /**/
+    /**/   if (wnd.kbd.KeyIsPressed(VK_RIGHT)) x += 1;                 /**/
+    /**/   if (wnd.kbd.KeyIsPressed(VK_UP)) y -= 1;                    /**/
+    /**/   if (wnd.kbd.KeyIsPressed(VK_DOWN)) y += 1;                  /**/
+    /**/                                                               /**/
+    /**/   if (x <= 0) x = 0;                                          /**/
+    /**/   if (x > gfx.ScreenWidth - 76) x = gfx.ScreenWidth - 76;     /**/
+    /**/   if (y <= 0) y = 0;                                          /**/
+    /**/   if (y > gfx.ScreenHeight - 61) y = gfx.ScreenHeight - 61;   /**/
+    /**/                                                               /**/
+    /*********************************************************************/
 }
 
 void Game::ComposeFrame()
 {
+    space.Draw(gfx);
+    img::TestAircraft(x, y, gfx);
 }
 
