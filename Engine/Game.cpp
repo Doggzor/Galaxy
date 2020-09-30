@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f,300.0f),float(300.0f))
+    def(Vec2(400.0f, 300.0f), 300.0f)
 {
 }
 
@@ -48,13 +48,13 @@ void Game::UpdateModel(float dt)
 {
     space.Update(dt, gfx);
     def.Update(wnd.kbd, gfx, dt);
-  
+    for (auto b : def.bullets) b->Update(dt);
 }
 
 void Game::ComposeFrame()
 {
     space.Draw(gfx);
     def.Draw(gfx);
-   
+    for (auto b : def.bullets) b->Draw(gfx);
 }
 
