@@ -52,7 +52,8 @@ void Game::UpdateModel(float dt)
 }
 
 void Game::ComposeFrame()
-{
+{ 
+    gfx.DrawSprite(50, 50, surf);
     space.Draw(gfx);
     def.Draw(gfx);
     for (auto b : def.bullets) b->Draw(gfx);

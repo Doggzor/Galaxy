@@ -19,7 +19,6 @@ void Defender::Draw(Graphics& gfx)
 
 void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
 {
-<<<<<<< HEAD
   
       dir = { 0.0f,0.0f };
 
@@ -63,7 +62,7 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
          pos.y = float(gfx.ScreenHeight) - height/2;
 
      }
-=======
+
     if (reload > 0) reload -= dt;
     dir = { 0.0f,0.0f };
 
@@ -87,10 +86,7 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
 
     if (kbd.KeyIsPressed(VK_SPACE)) Shoot();
    
-    const float right = pos.x + width / 2;
-    const float left = pos.x - width / 2;
-    const float top = pos.y - height / 2;
-    const float bottom = pos.y + height / 2;
+   
     
     if (right > float(gfx.ScreenWidth))
     {
@@ -122,5 +118,5 @@ void Defender::Shoot()
         bullets.push_back(new Bullet(Vec2(left + 25.0f, top)));
         bullets.push_back(new Bullet(Vec2(left + 50.0f, top)));
     }
->>>>>>> origin/Dogg
+
 }

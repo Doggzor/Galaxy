@@ -84,6 +84,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -137,6 +140,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -154,6 +160,12 @@
   <ItemGroup>
     <Image Include="Chili.ico">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\proba1.bmp">
+      <Filter>Header Files</Filter>
+    </Image>
+    <Image Include="proba4.bmp">
+      <Filter>Header Files</Filter>
     </Image>
   </ItemGroup>
 </Project>
