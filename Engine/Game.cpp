@@ -25,7 +25,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-    space(fWorldSpeed, gfx)
+    space(fWorldSpeed, gfx),
+    def(Vec2(400.0f, 300.0f), 300.0f)
 {
 }
 
@@ -46,25 +47,14 @@ void Game::Go()
 void Game::UpdateModel(float dt)
 {
     space.Update(dt, gfx);
-
-    /*****************************TEST************************************/
-    /**/                                                               /**/
-    /**/   if (wnd.kbd.KeyIsPressed(VK_LEFT)) x -= 1;                  /**/
-    /**/   if (wnd.kbd.KeyIsPressed(VK_RIGHT)) x += 1;                 /**/
-    /**/   if (wnd.kbd.KeyIsPressed(VK_UP)) y -= 1;                    /**/
-    /**/   if (wnd.kbd.KeyIsPressed(VK_DOWN)) y += 1;                  /**/
-    /**/                                                               /**/
-    /**/   if (x <= 0) x = 0;                                          /**/
-    /**/   if (x > gfx.ScreenWidth - 76) x = gfx.ScreenWidth - 76;     /**/
-    /**/   if (y <= 0) y = 0;                                          /**/
-    /**/   if (y > gfx.ScreenHeight - 61) y = gfx.ScreenHeight - 61;   /**/
-    /**/                                                               /**/
-    /*********************************************************************/
+    def.Update(wnd.kbd, gfx, dt);
+    for (auto b : def.bullets) b->Update(dt);
 }
 
 void Game::ComposeFrame()
 {
     space.Draw(gfx);
-    img::TestAircraft(x, y, gfx);
+    def.Draw(gfx);
+    for (auto b : def.bullets) b->Draw(gfx);
 }
 
