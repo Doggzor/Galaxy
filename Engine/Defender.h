@@ -14,7 +14,11 @@ public:
 	Defender(const Vec2& pos_in, float speed_in);
 	void Draw(Graphics& gfx);
 	void Update(Keyboard& kbd,Graphics&gfx,float dt);
+	const Vec2& GetPos();
 	//void Respawn();
+
+	float dmg = 30.0f;
+	float colRadius = 50.0f;
 
 	std::vector<Bullet*> bullets;
 

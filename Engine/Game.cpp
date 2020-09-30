@@ -26,7 +26,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f, 300.0f), 300.0f)
+    def(Vec2(400.0f, 300.0f), 300.0f),
+    testEnemy(Vec2(400.0f, 100.0f))
 {
 }
 
@@ -48,7 +49,20 @@ void Game::UpdateModel(float dt)
 {
     space.Update(dt, gfx);
     def.Update(wnd.kbd, gfx, dt);
-    for (auto b : def.bullets) b->Update(dt);
+    for (auto b : def.bullets)
+    {
+        b->Update(dt);
+        if (!testEnemy.bDead && b->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
+        {
+            testEnemy.TakeDmg(def.dmg);
+        }
+    }
+    testEnemy.Update(dt, gfx);
+    for (auto b : testEnemy.bullets)
+    {
+        b->Update(dt);
+        b->bHitTarget(def.GetPos(), def.colRadius);
+    }
 }
 
 void Game::ComposeFrame()
@@ -56,5 +70,7 @@ void Game::ComposeFrame()
     space.Draw(gfx);
     def.Draw(gfx);
     for (auto b : def.bullets) b->Draw(gfx);
+    testEnemy.Draw(gfx);
+    for (auto b : testEnemy.bullets) b->Draw(gfx);
 }
 

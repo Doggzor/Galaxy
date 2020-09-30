@@ -66,6 +66,12 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
     }
 }
 
+const Vec2& Defender::GetPos()
+{
+    return pos;
+}
+
+
 void Defender::Shoot()
 {
     const float left = pos.x - width / 2;
@@ -74,7 +80,7 @@ void Defender::Shoot()
     if (reload <= 0)
     {
         reload = 0.3f;
-        bullets.push_back(new Bullet(Vec2(left + 25.0f, top)));
-        bullets.push_back(new Bullet(Vec2(left + 50.0f, top)));
+        bullets.push_back(new Bullet(Vec2(left + 25.0f, top), dmg, true));
+        bullets.push_back(new Bullet(Vec2(left + 50.0f, top), dmg, true));
     }
 }
