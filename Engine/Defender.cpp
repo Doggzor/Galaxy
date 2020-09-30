@@ -39,9 +39,27 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
          dir.y += 1.0f;
      }
      pos += dir.GetNormalized() * speed*dt;
-     if (pos.x <= 0) pos.x = 0;                                         
-     if (pos.x > gfx.ScreenWidth - 76) pos.x = gfx.ScreenWidth - 76;    
-     if (pos.y <= 0) pos.y = 0;                                         
-     if (pos.y > gfx.ScreenHeight - 61) pos.y = gfx.ScreenHeight - 61;  
    
+     const float right = pos.x + width / 2;
+     const float left = pos.x - width / 2;
+     const float top = pos.y - height / 2;
+     const float bottom = pos.y + height / 2;
+     
+     if (right > float(gfx.ScreenWidth))
+     {
+         pos.x = float(gfx.ScreenWidth )- width / 2;
+     }
+     if (left < 0)
+     {
+         pos.x = width / 2;
+     }
+     if (top < 0)
+     {
+         pos.y = 0 + height / 2;
+     }
+     if (bottom > float(gfx.ScreenHeight))
+     {
+         pos.y = float(gfx.ScreenHeight) - height/2;
+
+     }
 }

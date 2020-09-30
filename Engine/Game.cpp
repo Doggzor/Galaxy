@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f,300.0f),float(3.0f))
+    def(Vec2(400.0f,300.0f),float(300.0f))
 {
 }
 
