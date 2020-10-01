@@ -87,6 +87,12 @@
     <ClInclude Include="Surface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -143,6 +149,12 @@
     <ClCompile Include="Surface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -165,6 +177,9 @@
       <Filter>Header Files</Filter>
     </Image>
     <Image Include="proba4.bmp">
+      <Filter>Header Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\svemir2.bmp">
       <Filter>Header Files</Filter>
     </Image>
   </ItemGroup>

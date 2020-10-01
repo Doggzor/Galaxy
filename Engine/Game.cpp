@@ -28,7 +28,9 @@ Game::Game( MainWindow& wnd )
     space(fWorldSpeed, gfx),
     def(Vec2(400.0f, 300.0f), 300.0f),
     testEnemy(Vec2(400.0f, 100.0f))
+    
 {
+   
 }
 
 void Game::Go()
@@ -63,15 +65,23 @@ void Game::UpdateModel(float dt)
         b->Update(dt);
         b->bHitTarget(def.GetPos(), def.colRadius);
     }
+    testEnemy.DoDefenderColision(def);
+    
+                             
 }
 
 void Game::ComposeFrame()
 { 
-    gfx.DrawSprite(50, 50, surf);
+   // gfx.DrawSprite(0,0, surf);
     space.Draw(gfx);
     def.Draw(gfx);
     for (auto b : def.bullets) b->Draw(gfx);
-    testEnemy.Draw(gfx);
+    
+    if (!testEnemy.DoDefenderColision(def))
+    {
+        testEnemy.Draw(gfx);
+
+    }
     for (auto b : testEnemy.bullets) b->Draw(gfx);
 }
 

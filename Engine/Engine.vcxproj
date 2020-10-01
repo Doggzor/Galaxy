@@ -139,6 +139,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
+    <ClInclude Include="CircleF.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="COMInitializer.h" />
     <ClInclude Include="Defender.h" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CircleF.cpp" />
     <ClCompile Include="COMInitializer.cpp" />
     <ClCompile Include="Defender.cpp" />
     <ClCompile Include="DXErr.cpp" />
@@ -249,6 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\OneDrive\Desktop\proba1.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\svemir2.bmp" />
     <Image Include="Chili.ico" />
     <Image Include="proba4.bmp" />
   </ItemGroup>

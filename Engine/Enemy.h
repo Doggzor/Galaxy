@@ -5,6 +5,8 @@
 #include"Vec2.h"
 #include"Keyboard.h"
 #include "Bullet.h"
+#include"CircleF.h"
+#include"Defender.h"
 
 class Enemy
 {
@@ -14,6 +16,7 @@ public:
 	void Update(float dt, Graphics& gfx);
 	void TakeDmg(float dmg);
 	const Vec2& GetPos();
+	bool DoDefenderColision(Defender&def);
 
 	float colRadius = 30.0f;
 	bool bDead = false;

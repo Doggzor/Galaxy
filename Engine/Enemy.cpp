@@ -46,6 +46,19 @@ const Vec2& Enemy::GetPos()
 	return pos;
 }
 
+bool Enemy::DoDefenderColision(Defender& def)
+{
+	CircleF  cf;
+	float R = 50.0f;
+
+	if (cf.IsOverLapingWitH(def.GetPos(),R))
+	{
+
+		return true;
+	}
+
+}
+
 void Enemy::Shoot()
 {
 	const float bottom = pos.y + height / 2;

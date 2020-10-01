@@ -31,6 +31,8 @@
 #include "img.h"
 #include"Defender.h"
 #include"Surface.h"
+#include"Enemy.h"
+#include"CircleF.h"
 
 
 class Game
@@ -61,6 +63,7 @@ private:
 	int x = 400;
 	int y = 300;
 	Defender def;
-	Surface surf = Surface("proba4.bmp");
-
+	Surface surf = Surface("svemir2.bmp");
+	Enemy  testEnemy;
+	CircleF cf;
 };
