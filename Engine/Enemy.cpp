@@ -51,7 +51,7 @@ bool Enemy::DoDefenderColision(Defender& def)
 	CircleF  cf;
 	float R = 50.0f;
 
-	if (cf.IsOverLapingWitH(def.GetPos(),R))
+	if (cf.isInside(pos.x,pos.y,R,def.pos.x,def.pos.y))
 	{
 
 		return true;

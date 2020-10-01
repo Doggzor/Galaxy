@@ -16,18 +16,18 @@ public:
 	void Update(Keyboard& kbd,Graphics&gfx,float dt);
 	const Vec2& GetPos();
 	//void Respawn();
-
 	float dmg = 30.0f;
 	float colRadius = 50.0f;
 
 	std::vector<Bullet*> bullets;
 
+	Vec2 pos;
 private:
 
 	void Shoot();
 
 
-	Vec2 pos;
+	
 	Vec2 dir{ 0.0f,0.0f };
 	static constexpr float width =75;
 	static constexpr  float height=60;

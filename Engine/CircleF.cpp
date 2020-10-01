@@ -19,17 +19,25 @@ CircleF::CircleF(Vec2& centar, float R, Color c)
 bool CircleF::IsOverLapingWitH(const Vec2& other, float R)
 {
 	  
-        float distSq = sqrt(((x - other.x)
-            * (x - other.x))
-            + ((y - other.y)
-                * (y - other.y)));
+	if ((other.x - x) * (other.x - x) +
+		(other.y - y) * (other.y - y) <= R*R )
+	{
 
-		if (distSq< R )
-
-		{
-			return true;
-		}
-       
+		return true;
+	}
+	
           
 
+}
+
+bool CircleF::isInside(float circle_x, float circle_y, int rad, int x, int y)
+{
+	
+		// Compare radius of circle with distance  
+		// of its center from given point 
+		if ((x - circle_x) * (x - circle_x) +
+			(y - circle_y) * (y - circle_y) <= rad * rad)
+			return true;
+		else
+			return false;
 }
