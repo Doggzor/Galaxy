@@ -30,7 +30,7 @@
 #include "Space.h"
 #include "img.h"
 #include"Defender.h"
-#include "Enemy.h"
+#include"Surface.h"
 
 
 class Game
@@ -61,6 +61,6 @@ private:
 	int x = 400;
 	int y = 300;
 	Defender def;
-	Enemy testEnemy;
+	Surface surf = Surface("proba4.bmp");
 
 };

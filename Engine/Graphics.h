@@ -26,6 +26,7 @@
 #include "Colors.h"
 #include "Vec2.h"
 #include"RectF.h"
+#include"Surface.h"
 
 class Graphics
 {
@@ -58,7 +59,9 @@ public:
 	{
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
+
 	void PutPixel( int x,int y,Color c );
+	void DrawSprite(int x, int y, Surface& s);
 	void DrawRect(int x0, int y0, int x1, int y1, Color c);
 	void DrawRectDim(int x0, int y0, int width, int height, Color c)
 	{
