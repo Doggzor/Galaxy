@@ -250,6 +250,24 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol1.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol11.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol111.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol2.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol22.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol222.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol3.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol33.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol333.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol4.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol44.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol444.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol5.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol55.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol555.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol6.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol66.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol666.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\proba1.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\svemir2.bmp" />
     <Image Include="Chili.ico" />

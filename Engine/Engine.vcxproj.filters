@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\img">
+      <UniqueIdentifier>{f2cf9970-b7cc-4c4e-afb5-43ff92d9a918}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -181,6 +184,60 @@
     </Image>
     <Image Include="..\..\..\..\OneDrive\Desktop\svemir2.bmp">
       <Filter>Header Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol1.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol2.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol3.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol4.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol5.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol6.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol44.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol55.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol66.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol11.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol22.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol33.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol333.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol444.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol666.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol222.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol555.bmp">
+      <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol111.bmp">
+      <Filter>Header Files\img</Filter>
     </Image>
   </ItemGroup>
 </Project>

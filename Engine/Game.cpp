@@ -30,7 +30,7 @@ Game::Game( MainWindow& wnd )
     testEnemy(Vec2(400.0f, 100.0f))
     
 {
-   
+  
 }
 
 void Game::Go()
@@ -49,6 +49,7 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
+
     space.Update(dt, gfx);
     def.Update(wnd.kbd, gfx, dt);
     for (auto b : def.bullets)
@@ -56,7 +57,10 @@ void Game::UpdateModel(float dt)
         b->Update(dt);
         if (!testEnemy.bDead && b->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
         {
+            float x = testEnemy.pos.x;
+            float y = testEnemy.pos.y - 20;
             testEnemy.TakeDmg(def.dmg);
+            gfx.DrawSprite(x, y, surf);
         }
     }
     testEnemy.Update(dt, gfx);
@@ -64,11 +68,65 @@ void Game::UpdateModel(float dt)
     {
         b->Update(dt);
         b->bHitTarget(def.GetPos(), def.colRadius);
+        
     }
     testEnemy.DoDefenderColision(def);
     
                              
 }
+
+void Game::Gif6(int& slider, Graphics& gfx, Vec2& centar,const  std::string& vol1, const std::string& vol2, const std::string& vol3,const  std::string& vol4,const std::string& vol5,const  std::string& vol6)
+
+    {
+        Surface s1 = Surface(vol1);
+        Surface s2 = Surface(vol2);
+        Surface s3 = Surface(vol3);
+        Surface s4 = Surface(vol4);
+        Surface s5 = Surface(vol5);
+        Surface s6 = Surface(vol6);
+
+
+        slider++;
+
+        if (slider > 0 && slider < 2)
+        {
+            gfx.DrawSprite(centar.x, centar.y, s1);
+        }
+
+        if (slider > 2 && slider < 3)
+
+        {
+            gfx.DrawSprite(centar.x, centar.y, s2);
+        }
+
+
+        if (slider >3 && slider <5)
+
+        {
+            gfx.DrawSprite(centar.x, centar.y, s3);
+        }
+
+        if (slider >5 && slider < 7)
+
+        {
+            gfx.DrawSprite(centar.x, centar.y, s4);;
+        }
+        if (slider > 7 && slider <9)
+
+        {
+            gfx.DrawSprite(centar.x, centar.y, s5);
+        }
+        if (slider >9&& slider <11)
+
+        {
+            gfx.DrawSprite(centar.x, centar.y, s6);;
+        }
+
+        
+    
+}
+
+
 
 void Game::ComposeFrame()
 { 
@@ -83,5 +141,12 @@ void Game::ComposeFrame()
 
     }
     for (auto b : testEnemy.bullets) b->Draw(gfx);
+    test++;
+    
+    if (test > 50 && test < 80)
+    {
+        Gif6(slider, gfx, kita, "vol111.bmp", "vol222.bmp", "vol333.bmp", "vol444.bmp", "vol555.bmp", "vol666.bmp");
+
+    }
 }
 
