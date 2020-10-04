@@ -22,11 +22,10 @@ public:
 	bool bDead = false;
 
 	std::vector<Bullet*> bullets;
-	Vec2 pos;
 private:
 	void Shoot();
 
-	
+	Vec2 pos;
 	static constexpr float width = 40;
 	static constexpr  float height = 40;
 	float speed = 200.0f;

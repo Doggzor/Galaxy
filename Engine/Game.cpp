@@ -73,10 +73,8 @@ void Game::UpdateModel(float dt)
             b->Update(dt);
             if (!testEnemy.bDead && b->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
             {
-                float x = testEnemy.pos.x;
-                float y = testEnemy.pos.y - 20;
                 testEnemy.TakeDmg(def.dmg);
-                gfx.DrawSprite(x, y, surf);
+                gfx.DrawSprite((int)b->pos.x, (int)(b->pos.y - b->radius), surf);
             }
         }
         testEnemy.Update(dt, gfx);
