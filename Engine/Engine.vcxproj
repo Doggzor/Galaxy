@@ -250,6 +250,8 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\avantura.bmp" />
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\intro.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol1.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol11.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol111.bmp" />
@@ -268,10 +270,8 @@
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol6.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol66.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol666.bmp" />
-    <Image Include="..\..\..\..\OneDrive\Desktop\proba1.bmp" />
     <Image Include="..\..\..\..\OneDrive\Desktop\svemir2.bmp" />
     <Image Include="Chili.ico" />
-    <Image Include="proba4.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

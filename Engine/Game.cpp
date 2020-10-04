@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include<iostream>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -35,6 +36,7 @@ Game::Game( MainWindow& wnd )
 
 void Game::Go()
 {
+
 	gfx.BeginFrame();
     float ElapsedTime = ft.Mark();
     while (ElapsedTime > 0.0f)
@@ -49,30 +51,48 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
-
-    space.Update(dt, gfx);
-    def.Update(wnd.kbd, gfx, dt);
-    for (auto b : def.bullets)
-    {
-        b->Update(dt);
-        if (!testEnemy.bDead && b->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
-        {
-            float x = testEnemy.pos.x;
-            float y = testEnemy.pos.y - 20;
-            testEnemy.TakeDmg(def.dmg);
-            gfx.DrawSprite(x, y, surf);
-        }
-    }
-    testEnemy.Update(dt, gfx);
-    for (auto b : testEnemy.bullets)
-    {
-        b->Update(dt);
-        b->bHitTarget(def.GetPos(), def.colRadius);
-        
-    }
-    testEnemy.DoDefenderColision(def);
     
-                             
+    if (wnd.kbd.KeyIsPressed(VK_SPACE))
+    {
+        GS = GameState::GameOn;
+    }
+    if (GS != GameState::GameOn)
+    {
+        GS = GameState::GamePaused;
+   }
+    
+    
+    switch (GS)
+    {
+    case Game::GameState::GameOn:
+
+        space.Update(dt, gfx);
+        def.Update(wnd.kbd, gfx, dt);
+        for (auto b : def.bullets)
+        {
+            b->Update(dt);
+            if (!testEnemy.bDead && b->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
+            {
+                float x = testEnemy.pos.x;
+                float y = testEnemy.pos.y - 20;
+                testEnemy.TakeDmg(def.dmg);
+                gfx.DrawSprite(x, y, surf);
+            }
+        }
+        testEnemy.Update(dt, gfx);
+        for (auto b : testEnemy.bullets)
+        {
+            b->Update(dt);
+            b->bHitTarget(def.GetPos(), def.colRadius);
+
+        }
+        testEnemy.DoDefenderColision(def);
+        break;
+    case Game::GameState::GamePaused:
+        break;
+    }
+   
+   
 }
 
 void Game::Gif6(int& slider, Graphics& gfx, Vec2& centar,const  std::string& vol1, const std::string& vol2, const std::string& vol3,const  std::string& vol4,const std::string& vol5,const  std::string& vol6)
@@ -128,6 +148,7 @@ void Game::Gif6(int& slider, Graphics& gfx, Vec2& centar,const  std::string& vol
 
 
 
+
 void Game::ComposeFrame()
 { 
    // gfx.DrawSprite(0,0, surf);
@@ -147,6 +168,10 @@ void Game::ComposeFrame()
     {
         Gif6(slider, gfx, kita, "vol111.bmp", "vol222.bmp", "vol333.bmp", "vol444.bmp", "vol555.bmp", "vol666.bmp");
 
+    }
+    if (GS == GameState::GamePaused)
+    {
+        gfx.DrawSprite(0, 0, intro);
     }
 }
 

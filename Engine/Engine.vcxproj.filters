@@ -176,12 +176,6 @@
     <Image Include="Chili.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\..\..\OneDrive\Desktop\proba1.bmp">
-      <Filter>Header Files</Filter>
-    </Image>
-    <Image Include="proba4.bmp">
-      <Filter>Header Files</Filter>
-    </Image>
     <Image Include="..\..\..\..\OneDrive\Desktop\svemir2.bmp">
       <Filter>Header Files</Filter>
     </Image>
@@ -238,6 +232,12 @@
     </Image>
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\vol111.bmp">
       <Filter>Header Files\img</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\avantura.bmp">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\intro.bmp">
+      <Filter>Source Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

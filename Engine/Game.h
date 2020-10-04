@@ -56,18 +56,25 @@ private:
     FrameTimer ft;
 	float fWorldSpeed = 180.0f;
 	Space space;
+	enum class GameState
+	{
+		GameOn,
+		GamePaused
+	};
 	/********************************/
 
 
 	//Testing purposes:
+	GameState GS;
 	int x = 400;
 	int y = 300;
 	Defender def;
 	Surface surf = Surface("vol333.bmp");
+	Surface intro = Surface("intro.bmp");
 	Enemy  testEnemy;
 	CircleF cf;
 	int test = 0;
 	Vec2 kita{ 50.0f,50.0f };
 	int slider = 0;
-	void Gif6(int& slider, Graphics& gfx, Vec2& centar, const std::string& vol1,const std::string& vol2, const std::string& vol3, const std::string& vol4, const std::string& vol5, const std::string& vol6);
+	void Gif6(int& slider, Graphics& gfx, Vec2& centar, const std::string& vol1,const std::string& vol2, const std::string& vol3, const std::string& vol4, const std::string& vol5, const std::string& vol6);	
 }; 
