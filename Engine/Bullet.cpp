@@ -1,8 +1,9 @@
 #include "Bullet.h"
 
-Bullet::Bullet(const Vec2& pos, float dmg, bool friendly)
+Bullet::Bullet(const Vec2& pos, const Vec2& dir, float dmg, bool friendly)
 	:
 	pos(pos),
+	dir(dir),
 	dmg(dmg),
 	bFriendly(friendly)
 {
@@ -12,8 +13,7 @@ Bullet::Bullet(const Vec2& pos, float dmg, bool friendly)
 
 void Bullet::Update(float dt)
 {
-		if (bFriendly) pos.y -= speed * dt;
-		else pos.y += speed * dt;
+	pos += dir.GetNormalized() * speed * dt;
 }
 
 void Bullet::Draw(Graphics& gfx)
@@ -28,8 +28,6 @@ void Bullet::delete_offscreen(Graphics& gfx)
 
 bool Bullet::bHitTarget(const Vec2& collision_center, float collision_radius)
 {
-		const float length0 = (collision_center - pos).GetLengthSq();
-		const float length1 = (collision_radius + radius) * (collision_radius + radius);
 		if ((collision_center - pos).GetLengthSq() < (collision_radius + radius) * (collision_radius + radius))
 		{
 			bDeleted = true;

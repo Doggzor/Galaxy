@@ -56,6 +56,8 @@ void Enemy::Shoot()
 	if (reloadTime_current <= 0)
 	{
 		reloadTime_current = reloadTime_max;
-		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), dmg, false));
+		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(-0.5f, 1.0f), dmg, false));
+		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), dmg, false));
+		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.5f, 1.0f), dmg, false));
 	}
 }
