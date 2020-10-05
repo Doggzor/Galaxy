@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include"CircleF.h"
 #include"Defender.h"
+#include <memory>
 
 class Enemy
 {
@@ -21,7 +22,8 @@ public:
 	float colRadius = 30.0f;
 	bool bDead = false;
 
-	std::vector<Bullet*> bullets;
+	std::vector < std::unique_ptr<Bullet>> bullets;
+
 private:
 	void Shoot();
 

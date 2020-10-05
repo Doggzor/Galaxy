@@ -68,21 +68,25 @@ void Game::UpdateModel(float dt)
 
         space.Update(dt, gfx);
         def.Update(wnd.kbd, gfx, dt);
-        for (auto b : def.bullets)
+        for (int i = 0; i < def.bullets.size(); i++)
         {
-            b->Update(dt);
-            if (!testEnemy.bDead && b->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
+            def.bullets[i]->Update(dt);
+            def.bullets[i]->delete_offscreen(gfx);
+            if (!testEnemy.bDead && def.bullets[i]->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
             {
                 testEnemy.TakeDmg(def.dmg);
-                gfx.DrawSprite((int)b->pos.x, (int)(b->pos.y - b->radius), surf);
+                gfx.DrawSprite((int)def.bullets[i]->pos.x, (int)(def.bullets[i]->pos.y - def.bullets[i]->radius), surf);
             }
+            if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i]));
+            
         }
         testEnemy.Update(dt, gfx);
-        for (auto b : testEnemy.bullets)
+        for (int i = 0; i < testEnemy.bullets.size(); i++)
         {
-            b->Update(dt);
-            b->bHitTarget(def.GetPos(), def.colRadius);
-
+            testEnemy.bullets[i]->Update(dt);
+            testEnemy.bullets[i]->delete_offscreen(gfx);
+            testEnemy.bullets[i]->bHitTarget(def.GetPos(), def.colRadius);
+            if (testEnemy.bullets[i]->bDeleted) testEnemy.bullets.erase(std::remove(testEnemy.bullets.begin(), testEnemy.bullets.end(), testEnemy.bullets[i]));
         }
         testEnemy.DoDefenderColision(def);
         break;
@@ -93,83 +97,19 @@ void Game::UpdateModel(float dt)
    
 }
 
-void Game::Gif6(int& slider, Graphics& gfx, Vec2& centar,const  std::string& vol1, const std::string& vol2, const std::string& vol3,const  std::string& vol4,const std::string& vol5,const  std::string& vol6)
-
-    {
-        Surface s1 = Surface(vol1);
-        Surface s2 = Surface(vol2);
-        Surface s3 = Surface(vol3);
-        Surface s4 = Surface(vol4);
-        Surface s5 = Surface(vol5);
-        Surface s6 = Surface(vol6);
-
-
-        slider++;
-
-        if (slider > 0 && slider < 2)
-        {
-            gfx.DrawSprite(centar.x, centar.y, s1);
-        }
-
-        if (slider > 2 && slider < 3)
-
-        {
-            gfx.DrawSprite(centar.x, centar.y, s2);
-        }
-
-
-        if (slider >3 && slider <5)
-
-        {
-            gfx.DrawSprite(centar.x, centar.y, s3);
-        }
-
-        if (slider >5 && slider < 7)
-
-        {
-            gfx.DrawSprite(centar.x, centar.y, s4);;
-        }
-        if (slider > 7 && slider <9)
-
-        {
-            gfx.DrawSprite(centar.x, centar.y, s5);
-        }
-        if (slider >9&& slider <11)
-
-        {
-            gfx.DrawSprite(centar.x, centar.y, s6);;
-        }
-
-        
-    
-}
-
-
-
-
 void Game::ComposeFrame()
 { 
    // gfx.DrawSprite(0,0, surf);
     space.Draw(gfx);
     def.Draw(gfx);
-    for (auto b : def.bullets) b->Draw(gfx);
+    for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx);
     
     if (!testEnemy.DoDefenderColision(def))
     {
         testEnemy.Draw(gfx);
+    }
 
-    }
-    for (auto b : testEnemy.bullets) b->Draw(gfx);
-    test++;
-    
-    if (test > 50 && test < 80)
-    {
-        Gif6(slider, gfx, kita, "vol111.bmp", "vol222.bmp", "vol333.bmp", "vol444.bmp", "vol555.bmp", "vol666.bmp");
+    for (int i = 0; i < testEnemy.bullets.size(); i++) testEnemy.bullets[i]->Draw(gfx);
 
-    }
-    if (GS == GameState::GamePaused)
-    {
-        gfx.DrawSprite(0, 0, intro);
-    }
 }
 

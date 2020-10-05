@@ -5,6 +5,7 @@
 #include"Vec2.h"
 #include"Keyboard.h"
 #include "Bullet.h"
+#include <memory>
 
 class Defender
 {
@@ -19,15 +20,13 @@ public:
 	float dmg = 30.0f;
 	float colRadius = 50.0f;
 
-	std::vector<Bullet*> bullets;
+	std::vector<std::unique_ptr <Bullet> > bullets;
 
-	Vec2 pos;
 private:
 
 	void Shoot();
 
-
-	
+	Vec2 pos;
 	Vec2 dir{ 0.0f,0.0f };
 	static constexpr float width =75;
 	static constexpr  float height=60;

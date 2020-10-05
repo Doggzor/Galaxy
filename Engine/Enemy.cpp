@@ -51,12 +51,7 @@ bool Enemy::DoDefenderColision(Defender& def)
 	CircleF  cf;
 	float R = 50.0f;
 
-	if (cf.isInside(pos.x,pos.y,R,def.pos.x,def.pos.y))
-	{
-
-		return true;
-	}
-
+	return (cf.isInside(pos.x, pos.y, R, def.GetPos().x, def.GetPos().y));
 }
 
 void Enemy::Shoot()
@@ -65,7 +60,7 @@ void Enemy::Shoot()
 
 	if (reload <= 0)
 	{
-		reload = 0.4f;
-		bullets.push_back(new Bullet(Vec2(pos.x, bottom), dmg, false));
+		reload = 0.1f;
+		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), dmg, false));
 	}
 }
