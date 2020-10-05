@@ -47,23 +47,23 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
      
      if (right > float(gfx.ScreenWidth))
      {
-         pos.x = float(gfx.ScreenWidth )- width / 2;
+         pos.x = float(gfx.ScreenWidth) - width / 2.0f;
      }
-     if (left < 0)
+     else if (left <= 0)
      {
-         pos.x = width / 2;
+         pos.x = width / 2.0f;
      }
-     if (top < 0)
+     if (top <= 0)
      {
-         pos.y = 0 + height / 2;
+         pos.y = 0 + height / 2.0f;
      }
-     if (bottom > float(gfx.ScreenHeight))
+     else if (bottom > float(gfx.ScreenHeight))
      {
-         pos.y = float(gfx.ScreenHeight) - height/2;
+         pos.y = float(gfx.ScreenHeight) - height / 2.0f;
 
      }
 
-    if (reload > 0) reload -= dt;
+    reloadTime_current -= dt;
     dir = { 0.0f,0.0f };
 
     if (kbd.KeyIsPressed(VK_LEFT))
@@ -85,26 +85,7 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
     pos += dir.GetNormalized() * speed*dt;
 
     if (kbd.KeyIsPressed(VK_SPACE)) Shoot();
-   
-   
-    
-    if (right > float(gfx.ScreenWidth))
-    {
-        pos.x = float(gfx.ScreenWidth )- width / 2;
-    }
-    else if (left < 0)
-    {
-        pos.x = width / 2;
-    }
-    if (top < 0)
-    {
-        pos.y = 0 + height / 2;
-    }
-    else if (bottom > float(gfx.ScreenHeight))
-    {
-        pos.y = float(gfx.ScreenHeight) - height/2;
 
-    }
 }
 
 const Vec2& Defender::GetPos()
@@ -118,9 +99,9 @@ void Defender::Shoot()
     const float left = pos.x - width / 2;
     const float top = pos.y - height / 2;
 
-    if (reload <= 0)
+    if (reloadTime_current <= 0)
     {
-        reload = 0.0f;
+        reloadTime_current = reloadTime_max;
 
         bullets.push_back(std::make_unique<Bullet>(Vec2(left + 25.0f, top), dmg, true));
         bullets.push_back(std::make_unique<Bullet>(Vec2(left + 50.0f, top), dmg, true));

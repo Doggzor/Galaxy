@@ -31,11 +31,12 @@ private:
 	static constexpr float width = 40;
 	static constexpr  float height = 40;
 	float speed = 200.0f;
-	float healthMax = 200.0f;
-	float health = 200.0f;
+	float health_max = 200.0f;
+	float health_current = health_max;
 	float dmg = 0;
 	float fMoveTimer = 0;
-	float reload = 0.4f;
+	float reloadTime_max = 0.4f;
+	float reloadTime_current = reloadTime_max;
 
 };
 

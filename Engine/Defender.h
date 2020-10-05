@@ -31,7 +31,8 @@ private:
 	static constexpr float width =75;
 	static constexpr  float height=60;
 	float speed;
-	float reload = 0;
+	float reloadTime_max = 0.3f;
+	float reloadTime_current = 0;
 
 };
 
