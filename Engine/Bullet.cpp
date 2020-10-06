@@ -1,18 +1,20 @@
 #include "Bullet.h"
 
-Bullet::Bullet(const Vec2& pos, const Vec2& dir, float dmg, bool friendly)
+Bullet::Bullet(const Vec2& pos, const Vec2& dir, const Color& c, float speed, float dmg, bool homing)
 	:
 	pos(pos),
+	c(c),
 	dir(dir),
+	speed(speed),
 	dmg(dmg),
-	bFriendly(friendly)
+	bHoming(homing)
 {
-	if (bFriendly) c = Colors::Cyan;
-	else c = Colors::Red;
 }
 
-void Bullet::Update(float dt)
+void Bullet::Update(float dt, const Vec2& target)
 {
+	if(target.x >= 0) //Aquire target only if it is initialized
+	if (bHoming && DetectionRadiusSq > (target - pos).GetLengthSq()) dir = target - pos; //Follow target if it's inside detection radius
 	pos += dir.GetNormalized() * speed * dt;
 }
 

@@ -39,5 +39,7 @@ private:
 	float reloadTime_current = 0;
 	float dmg = 30.0f;
 
+	float bulletSpeed = 500.0f;
+
 };
 

@@ -96,8 +96,8 @@ void Defender::Shoot()
     {
         reloadTime_current = reloadTime_max;
 
-        bullets.push_back(std::make_unique<Bullet>(Vec2(left + 25.0f, top), Vec2(0.0f, -1.0f), dmg, true));
-        bullets.push_back(std::make_unique<Bullet>(Vec2(left + 50.0f, top), Vec2(0.0f, -1.0f), dmg, true));
+        bullets.push_back(std::make_unique<Bullet>(Vec2(left + 25.0f, top), Vec2(0.0f, -1.0f), Colors::Cyan, bulletSpeed, dmg));
+        bullets.push_back(std::make_unique<Bullet>(Vec2(left + 50.0f, top), Vec2(0.0f, -1.0f), Colors::Cyan, bulletSpeed, dmg));
     }
 
 }

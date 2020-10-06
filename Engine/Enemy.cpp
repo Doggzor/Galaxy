@@ -33,9 +33,11 @@ void Enemy::Draw(Graphics& gfx)
 
 void Enemy::Update(float dt, Graphics& gfx)
 {
-	if( health_current <= 0 || pos.y - height / 2.0f > (float)gfx.ScreenBottom) bDead = true;
+	if( health_current <= 0 ||
+		(pos.y - height / 2.0f > (float)gfx.ScreenBottom + 15.0f && bullets.size() == 0)) //Enemy (and his health bar) went donw off screen boundaries and all his bullets are destroyed
+		bDead = true;
 
-	Move(dt);
+	if (pos.y - height / 2.0f <= (float)gfx.ScreenBottom + 15.0f) Move(dt); //Move only if enemy (and his health bar) didn't go thorugh the bottom of the screen
 	reloadTime_current -= dt;
 	Shoot();
 
@@ -90,7 +92,7 @@ void Enemy::Shoot()
 		{
 		case Model::test:
 			//Single shot downwards
-			bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), dmg, false));
+			bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), Colors::Red, 500.0f, dmg));
 			break;
 			//Triple shot
 			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(-0.5f, 1.0f), dmg, false));

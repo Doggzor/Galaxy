@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
     
 {
     enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(400.0f, 50.0f)));
-    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
+    //enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
 }
 
 void Game::Go()
@@ -86,7 +86,7 @@ void Game::UpdateModel(float dt)
             enemy[i]->Update(dt, gfx);
             for (int j = 0; j < enemy[i]->bullets.size(); j++) //Update bullets for all enemies
             {
-                enemy[i]->bullets[j]->Update(dt);
+                enemy[i]->bullets[j]->Update(dt, def.GetPos());
                 enemy[i]->bullets[j]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
                 if (enemy[i]->bullets[j]->bHitTarget(def.GetPos(), def.colRadius)) //Check collision against the defender
                 {
