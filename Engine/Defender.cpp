@@ -45,21 +45,21 @@ void Defender::Update(Keyboard& kbd,Graphics& gfx,float dt)
      const float top = pos.y - height / 2;
      const float bottom = pos.y + height / 2;
      
-     if (right > float(gfx.ScreenWidth))
+     if (right > float(gfx.ScreenRight))
      {
-         pos.x = float(gfx.ScreenWidth) - width / 2.0f;
+         pos.x = float(gfx.ScreenRight) - width / 2.0f;
      }
-     else if (left <= 0)
+     else if (left <= float(gfx.ScreenLeft))
      {
-         pos.x = width / 2.0f;
+         pos.x = float(gfx.ScreenLeft) + width / 2.0f;
      }
-     if (top <= 0)
+     if (top <= float(gfx.ScreenTop))
      {
-         pos.y = 0 + height / 2.0f;
+         pos.y = float(gfx.ScreenTop) + height / 2.0f;
      }
-     else if (bottom > float(gfx.ScreenHeight))
+     else if (bottom > float(gfx.ScreenBottom))
      {
-         pos.y = float(gfx.ScreenHeight) - height / 2.0f;
+         pos.y = float(gfx.ScreenBottom) - height / 2.0f;
 
      }
 
