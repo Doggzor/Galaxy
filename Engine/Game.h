@@ -33,6 +33,7 @@
 #include"Surface.h"
 #include"Enemy.h"
 #include"CircleF.h"
+#include <memory>
 
 
 class Game
@@ -70,6 +71,6 @@ private:
 	int y = 300;
 	Defender def;
 	Surface surf = Surface("vol333.bmp");
-	Enemy  testEnemy;
 	
+	std::vector < std::unique_ptr < Enemy > > enemy;
 }; 

@@ -27,11 +27,10 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f, 300.0f), 300.0f),
-    testEnemy(Vec2(400.0f, 50.0f))
+    def(Vec2(400.0f, 300.0f), 300.0f)
     
 {
-  
+    enemy.push_back(std::make_unique <Enemy>(Vec2(400.0f, 250.0f)));
 }
 
 void Game::Go()
@@ -68,27 +67,31 @@ void Game::UpdateModel(float dt)
 
         space.Update(dt, gfx);
         def.Update(wnd.kbd, gfx, dt);
-        for (int i = 0; i < def.bullets.size(); i++)
+        for (int i = 0; i < def.bullets.size(); i++) //Update defender bullets
         {
             def.bullets[i]->Update(dt);
-            def.bullets[i]->delete_offscreen(gfx);
-            if (!testEnemy.bDead && def.bullets[i]->bHitTarget(testEnemy.GetPos(), testEnemy.colRadius))
+            def.bullets[i]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
+            for (int j = 0; j < enemy.size(); j++)
+            if (def.bullets[i]->bHitTarget(enemy[j]->GetPos(), enemy[j]->colRadius)) //Check collision against all enemies
             {
-                testEnemy.TakeDmg(def.dmg);
-                gfx.DrawSprite((int)def.bullets[i]->pos.x, (int)(def.bullets[i]->pos.y - def.bullets[i]->radius), surf);
+                enemy[j]->TakeDmg(def.dmg);
+                gfx.DrawSprite((int)def.bullets[i]->pos.x, (int)(def.bullets[i]->pos.y - def.bullets[i]->radius) - 20, surf); //Draw blast in place of impact
             }
-            if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i]));
+            if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i])); //Delete bullets if needed
             
         }
-        testEnemy.Update(dt, gfx);
-        for (int i = 0; i < testEnemy.bullets.size(); i++)
+        for (int i = 0; i < enemy.size(); i++) //Update enemies
         {
-            testEnemy.bullets[i]->Update(dt);
-            testEnemy.bullets[i]->delete_offscreen(gfx);
-            testEnemy.bullets[i]->bHitTarget(def.GetPos(), def.colRadius);
-            if (testEnemy.bullets[i]->bDeleted) testEnemy.bullets.erase(std::remove(testEnemy.bullets.begin(), testEnemy.bullets.end(), testEnemy.bullets[i]));
+            enemy[i]->Update(dt, gfx);
+            for (int j = 0; j < enemy[i]->bullets.size(); j++) //Update bullets for all enemies
+            {
+                enemy[i]->bullets[j]->Update(dt);
+                enemy[i]->bullets[j]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
+                enemy[i]->bullets[j]->bHitTarget(def.GetPos(), def.colRadius); //Check collision against the defender
+                if (enemy[i]->bullets[j]->bDeleted) enemy[i]->bullets.erase(std::remove(enemy[i]->bullets.begin(), enemy[i]->bullets.end(), enemy[i]->bullets[j])); //Delete bullets if needed
+            }
+            if (enemy[i]->bDead) enemy.erase(std::remove(enemy.begin(), enemy.end(), enemy[i])); //Delete enemies if needed
         }
-        testEnemy.DoDefenderColision(def);
         break;
     case Game::GameState::GamePaused:
         break;
@@ -102,14 +105,13 @@ void Game::ComposeFrame()
    // gfx.DrawSprite(0,0, surf);
     space.Draw(gfx);
     def.Draw(gfx);
-    for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx);
+    for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Draw defender bullets
     
-    if (!testEnemy.DoDefenderColision(def))
+    for (int i = 0; i < enemy.size(); i++) //Draw enemies
     {
-        testEnemy.Draw(gfx);
+        enemy[i]->Draw(gfx);
+        for (int j = 0; j < enemy[i]->bullets.size(); j++) enemy[i]->bullets[j]->Draw(gfx); //Draw enemy bullets
     }
-
-    for (int i = 0; i < testEnemy.bullets.size(); i++) testEnemy.bullets[i]->Draw(gfx);
 
 }
 
