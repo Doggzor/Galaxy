@@ -1,9 +1,25 @@
 #include "Enemy.h"
 
-Enemy::Enemy(const Vec2& pos)
+Enemy::Enemy(const Model model, const Vec2& pos)
 	:
+	model(model),
 	pos(pos)
 {
+	switch (model)
+	{
+	case Model::test:
+		width = 40;
+		height = 40;
+		speed = 200.0f;
+		health_max = 200.0f;
+		dmg = 10.0f;
+		reloadTime_max = 0.3f;
+		break;
+	}
+	health_current = health_max;
+	reloadTime_current = reloadTime_max;
+	fMoveTimer = 0;
+
 }
 
 void Enemy::Draw(Graphics& gfx)
@@ -17,12 +33,9 @@ void Enemy::Draw(Graphics& gfx)
 
 void Enemy::Update(float dt, Graphics& gfx)
 {
-	if( health_current <= 0 || pos.y > (float)gfx.ScreenBottom) bDead = true;
+	if( health_current <= 0 || pos.y - height / 2.0f > (float)gfx.ScreenBottom) bDead = true;
 
-	fMoveTimer += 2.4f * dt;
-	pos.x += 400.0f * cos(fMoveTimer) * dt;
-	pos.y += 0.0f * dt;
-
+	Move(dt);
 	reloadTime_current -= dt;
 	Shoot();
 
@@ -38,12 +51,31 @@ const Vec2& Enemy::GetPos()
 	return pos;
 }
 
+float Enemy::GetDmg() const
+{
+	return dmg;
+}
+
 bool Enemy::DoDefenderColision(Defender& def)
 {
 	CircleF  cf;
 	float R = 50.0f;
 
 	return cf.isInside(pos.x, pos.y, R, def.GetPos());
+}
+
+void Enemy::Move(float dt)
+{
+	switch (model)
+	{
+	case Model::test:
+		//Sinusoid going down
+		fMoveTimer += 2.4f * dt;
+		pos.x += 400.0f * cos(fMoveTimer) * dt;
+		pos.y += 60.0f * dt;
+		break;
+	}
+	
 }
 
 void Enemy::Shoot()
@@ -53,8 +85,17 @@ void Enemy::Shoot()
 	if (reloadTime_current <= 0)
 	{
 		reloadTime_current = reloadTime_max;
-		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(-0.5f, 1.0f), dmg, false));
-		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), dmg, false));
-		bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.5f, 1.0f), dmg, false));
+
+		switch (model)
+		{
+		case Model::test:
+			//Single shot downwards
+			bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), dmg, false));
+			break;
+			//Triple shot
+			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(-0.5f, 1.0f), dmg, false));
+			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), dmg, false));
+			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.5f, 1.0f), dmg, false));
+		}
 	}
 }

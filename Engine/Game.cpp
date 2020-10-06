@@ -27,10 +27,11 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f, 300.0f), 300.0f)
+    def(Vec2(400.0f, 600.0f), 300.0f)
     
 {
-    enemy.push_back(std::make_unique <Enemy>(Vec2(400.0f, 250.0f)));
+    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(400.0f, 50.0f)));
+    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
 }
 
 void Game::Go()
@@ -74,8 +75,8 @@ void Game::UpdateModel(float dt)
             for (int j = 0; j < enemy.size(); j++)
             if (def.bullets[i]->bHitTarget(enemy[j]->GetPos(), enemy[j]->colRadius)) //Check collision against all enemies
             {
-                enemy[j]->TakeDmg(def.dmg);
-                gfx.DrawSprite((int)def.bullets[i]->pos.x, (int)(def.bullets[i]->pos.y - def.bullets[i]->radius) - 20, surf); //Draw blast in place of impact
+                enemy[j]->TakeDmg(def.GetDmg());
+                gfx.DrawSprite((int)def.bullets[i]->pos.x, (int)(def.bullets[i]->pos.y - def.bullets[i]->radius) - 20, surf); //Draw blast in place of impact (temporary)
             }
             if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i])); //Delete bullets if needed
             
@@ -87,7 +88,11 @@ void Game::UpdateModel(float dt)
             {
                 enemy[i]->bullets[j]->Update(dt);
                 enemy[i]->bullets[j]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
-                enemy[i]->bullets[j]->bHitTarget(def.GetPos(), def.colRadius); //Check collision against the defender
+                if (enemy[i]->bullets[j]->bHitTarget(def.GetPos(), def.colRadius)) //Check collision against the defender
+                {
+                    def.TakeDmg(enemy[i]->GetDmg());
+                    gfx.DrawSprite((int)enemy[i]->bullets[j]->pos.x, (int)(enemy[i]->bullets[j]->pos.y - enemy[i]->bullets[j]->radius) + 20, surf); //Draw blast in place of impact (temporary)
+                }
                 if (enemy[i]->bullets[j]->bDeleted) enemy[i]->bullets.erase(std::remove(enemy[i]->bullets.begin(), enemy[i]->bullets.end(), enemy[i]->bullets[j])); //Delete bullets if needed
             }
             if (enemy[i]->bDead) enemy.erase(std::remove(enemy.begin(), enemy.end(), enemy[i])); //Delete enemies if needed
