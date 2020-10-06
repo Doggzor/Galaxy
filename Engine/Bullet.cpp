@@ -41,3 +41,4 @@ bool Bullet::bHitTarget(const Vec2& collision_center, float collision_radius)
 		}
 		else return false;
 }
+

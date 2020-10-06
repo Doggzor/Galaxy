@@ -16,7 +16,18 @@ public:
 	{
 		test
 	};
-	Enemy(const Model model, const Vec2& pos);
+	enum class MovePattern
+	{
+		Sinusoid_Down,
+		ModelDefault
+	};
+	enum class FirePattern
+	{
+		SingleBullet_Down,
+		ModelDefault
+	};
+	Enemy(const Model model, const Vec2& pos,
+		const MovePattern MovePattern = MovePattern::ModelDefault, const FirePattern FirePattern = FirePattern::ModelDefault);
 	void Draw(Graphics& gfx);
 	void Update(float dt, Graphics& gfx);
 	void TakeDmg(float dmg);
@@ -34,6 +45,8 @@ private:
 	void Shoot();
 
 	Model model;
+	MovePattern movePattern;
+	FirePattern firePattern;
 	Vec2 pos;
 	float width = 0;
 	float height = 0;

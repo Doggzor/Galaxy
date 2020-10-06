@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(const Model model, const Vec2& pos)
+Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, const FirePattern FirePattern)
 	:
 	model(model),
 	pos(pos)
@@ -14,6 +14,8 @@ Enemy::Enemy(const Model model, const Vec2& pos)
 		health_max = 200.0f;
 		dmg = 10.0f;
 		reloadTime_max = 0.3f;
+		if(MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::Sinusoid_Down;
+		if(FirePattern == FirePattern::ModelDefault) firePattern = FirePattern::SingleBullet_Down;
 		break;
 	}
 	health_current = health_max;
@@ -68,10 +70,9 @@ bool Enemy::DoDefenderColision(Defender& def)
 
 void Enemy::Move(float dt)
 {
-	switch (model)
+	switch (movePattern)
 	{
-	case Model::test:
-		//Sinusoid going down
+	case MovePattern::Sinusoid_Down:
 		fMoveTimer += 2.4f * dt;
 		pos.x += 400.0f * cos(fMoveTimer) * dt;
 		pos.y += 60.0f * dt;
@@ -88,10 +89,9 @@ void Enemy::Shoot()
 	{
 		reloadTime_current = reloadTime_max;
 
-		switch (model)
+		switch (firePattern)
 		{
-		case Model::test:
-			//Single shot downwards
+		case FirePattern::SingleBullet_Down:
 			bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), Colors::Red, 500.0f, dmg));
 			break;
 			//Triple shot
