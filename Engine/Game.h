@@ -65,12 +65,11 @@ private:
 
 
 	//Testing purposes:
-	GameState GS;
+	GameState GS = GameState::GameOn;
 	int x = 400;
 	int y = 300;
 	Defender def;
 	Surface surf = Surface("vol333.bmp");
 	Enemy  testEnemy;
-	CircleF cf;
 	
 }; 

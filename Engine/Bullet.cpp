@@ -23,7 +23,11 @@ void Bullet::Draw(Graphics& gfx)
 
 void Bullet::delete_offscreen(Graphics& gfx)
 {
-	if (pos.x < 0 || pos.x > gfx.ScreenWidth || pos.y < 0 || pos.y > gfx.ScreenHeight) bDeleted = true;
+	const int left = (int)(pos.x - radius);
+	const int right = (int)(pos.x + radius);
+	const int top = (int)(pos.y - radius);
+	const int bottom = (int)(pos.y + radius);
+	if (right < gfx.ScreenLeft || left > gfx.ScreenRight || bottom < gfx.ScreenTop || top > gfx.ScreenBottom) bDeleted = true;
 }
 
 bool Bullet::bHitTarget(const Vec2& collision_center, float collision_radius)

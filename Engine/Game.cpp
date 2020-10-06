@@ -28,7 +28,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
     def(Vec2(400.0f, 300.0f), 300.0f),
-    testEnemy(Vec2(400.0f, 100.0f))
+    testEnemy(Vec2(400.0f, 50.0f))
     
 {
   
