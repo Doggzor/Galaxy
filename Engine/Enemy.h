@@ -6,7 +6,6 @@
 #include"Keyboard.h"
 #include "Bullet.h"
 #include"CircleF.h"
-#include"Defender.h"
 #include <memory>
 
 class Enemy
@@ -31,11 +30,13 @@ public:
 	void Draw(Graphics& gfx);
 	void Update(float dt, Graphics& gfx);
 	void TakeDmg(float dmg);
-	const Vec2& GetPos();
+	Vec2 GetPos() const;
 	float GetDmg() const;
-	//bool DoDefenderColision(Defender&def);
+	bool hasCrashedInto(const CircleF& circle);
+	bool hasCrashedInto(const Vec2& coordinate);
+	CircleF GetColCircle() const;
 
-	float colRadius = 30.0f;
+	float collision_dmg = 0;
 	bool bDead = false;
 
 	std::vector < std::unique_ptr<Bullet>> bullets;
@@ -45,11 +46,12 @@ private:
 	void Shoot();
 
 	Model model;
-	MovePattern movePattern;
-	FirePattern firePattern;
+	MovePattern movePattern = MovePattern::ModelDefault;
+	FirePattern firePattern = FirePattern::ModelDefault;
 	Vec2 pos;
 	float width = 0;
 	float height = 0;
+	float colRadius = 0;
 	float speed = 0;
 	float health_max = 0;
 	float health_current = health_max;

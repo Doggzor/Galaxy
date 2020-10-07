@@ -41,7 +41,7 @@ void Bullet::delete_offscreen(Graphics& gfx)
 
 bool Bullet::isTargetHit(const CircleF& target)
 {
-		if (circle.IsOverLapingWitH(target))
+		if (circle.IsOverLapingWith(target))
 		{
 			bDeleted = true;
 			return true;

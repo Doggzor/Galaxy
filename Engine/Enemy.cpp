@@ -8,11 +8,13 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 	switch (model)
 	{
 	case Model::test:
-		width = 40;
-		height = 40;
+		width = 40.0f;
+		height = 40.0f;
+		colRadius = 30.0f;
 		speed = 200.0f;
 		health_max = 200.0f;
 		dmg = 10.0f;
+		collision_dmg = 100.0f;
 		reloadTime_max = 0.3f;
 		if(MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::Sinusoid_Down;
 		if(FirePattern == FirePattern::ModelDefault) firePattern = FirePattern::SingleBullet_Down;
@@ -41,6 +43,7 @@ void Enemy::Update(float dt, Graphics& gfx)
 
 	if (pos.y - height / 2.0f <= (float)gfx.ScreenBottom + 15.0f) Move(dt); //Move only if enemy (and his health bar) didn't go thorugh the bottom of the screen
 	reloadTime_current -= dt;
+	
 	Shoot();
 
 }
@@ -50,7 +53,7 @@ void Enemy::TakeDmg(float dmg)
 	health_current -= dmg;
 }
 
-const Vec2& Enemy::GetPos()
+Vec2 Enemy::GetPos() const
 {
 	return pos;
 }
@@ -58,6 +61,31 @@ const Vec2& Enemy::GetPos()
 float Enemy::GetDmg() const
 {
 	return dmg;
+}
+
+bool Enemy::hasCrashedInto(const CircleF& circle)
+{
+	if (GetColCircle().IsOverLapingWith(circle))
+	{
+		bDead = true;
+		return true;
+	}
+	else return false;
+}
+
+bool Enemy::hasCrashedInto(const Vec2& coordinate)
+{
+	if (GetColCircle().isContaining(coordinate))
+	{
+		bDead = true;
+		return true;
+	}
+	else return false;
+}
+
+CircleF Enemy::GetColCircle() const
+{
+	return CircleF(pos, colRadius);
 }
 
 
@@ -85,7 +113,7 @@ void Enemy::Shoot()
 		switch (firePattern)
 		{
 		case FirePattern::SingleBullet_Down:
-			bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(pos.x, bottom), 6.0f), Vec2(0.0f, 1.0f), Colors::Yellow, 100.0f, dmg));
+			bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(pos.x, bottom), 6.0f), Vec2(0.0f, 1.0f), Colors::Red, 100.0f, dmg));
 			break;
 		}
 	}

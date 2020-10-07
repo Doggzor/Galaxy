@@ -76,9 +76,14 @@ void Defender::TakeDmg(float dmg)
     health_current -= dmg;
 }
 
-const Vec2& Defender::GetPos()
+Vec2 Defender::GetPos() const
 {
     return pos;
+}
+
+CircleF Defender::GetColCircle() const
+{
+    return CircleF(pos, colRadius);
 }
 
 float Defender::GetDmg() const

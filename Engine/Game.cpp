@@ -73,7 +73,7 @@ void Game::UpdateModel(float dt)
             def.bullets[i]->Update(dt);
             def.bullets[i]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
             for (int j = 0; j < enemy.size(); j++)
-            if (def.bullets[i]->isTargetHit(CircleF(enemy[j]->GetPos(), enemy[j]->colRadius))) //Check collision against all enemies
+            if (def.bullets[i]->isTargetHit(CircleF(enemy[j]->GetColCircle()))) //Check collision against all enemies
             {
                 enemy[j]->TakeDmg(def.GetDmg());
                 gfx.DrawSprite((int)def.bullets[i]->circle.center.x, (int)(def.bullets[i]->circle.center.y - def.bullets[i]->circle.r) - 20, surf); //Draw blast in place of impact (temporary)
@@ -84,11 +84,12 @@ void Game::UpdateModel(float dt)
         for (int i = 0; i < enemy.size(); i++) //Update enemies
         {
             enemy[i]->Update(dt, gfx);
+            if (enemy[i]->hasCrashedInto(def.GetPos())) def.TakeDmg(enemy[i]->collision_dmg); //Check if enemy crashed into defender
             for (int j = 0; j < enemy[i]->bullets.size(); j++) //Update bullets for all enemies
             {
                 enemy[i]->bullets[j]->Update(dt, def.GetPos());
                 enemy[i]->bullets[j]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
-                if (enemy[i]->bullets[j]->isTargetHit(CircleF(def.GetPos(), def.colRadius))) //Check collision against the defender
+                if (enemy[i]->bullets[j]->isTargetHit(def.GetColCircle())) //Check collision against the defender
                 {
                     def.TakeDmg(enemy[i]->GetDmg());
                     gfx.DrawSprite((int)enemy[i]->bullets[j]->circle.center.x, (int)(enemy[i]->bullets[j]->circle.center.y - enemy[i]->bullets[j]->circle.r) + 20, surf); //Draw blast in place of impact (temporary)

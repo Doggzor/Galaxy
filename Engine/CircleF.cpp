@@ -8,7 +8,7 @@ CircleF::CircleF(Vec2 center, float r)
 {
 }
 
-bool CircleF::IsOverLapingWitH(const CircleF& other)
+bool CircleF::IsOverLapingWith(const CircleF& other)
 {
 	return (other.center - center).GetLengthSq() < (other.r + r) * (other.r + r);
 

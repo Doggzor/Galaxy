@@ -16,10 +16,10 @@ public:
 	void Draw(Graphics& gfx);
 	void Update(Keyboard& kbd,Graphics&gfx,float dt);
 	void TakeDmg(float dmg);
-	const Vec2& GetPos();
+	Vec2 GetPos() const;
+	CircleF GetColCircle() const;
 	float GetDmg() const;
 	//void Respawn();
-	float colRadius = 50.0f;
 	bool bDead = false;
 
 	std::vector<std::unique_ptr <Bullet> > bullets;
@@ -30,8 +30,9 @@ private:
 
 	Vec2 pos;
 	Vec2 dir{ 0.0f,0.0f };
+	static constexpr float colRadius = 50.0f;
 	static constexpr float width =75;
-	static constexpr  float height=60;
+	static constexpr float height=60;
 	float speed;
 	float health_max = 1000;
 	float health_current = health_max;
