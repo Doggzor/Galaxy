@@ -73,10 +73,10 @@ void Game::UpdateModel(float dt)
             def.bullets[i]->Update(dt);
             def.bullets[i]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
             for (int j = 0; j < enemy.size(); j++)
-            if (def.bullets[i]->bHitTarget(enemy[j]->GetPos(), enemy[j]->colRadius)) //Check collision against all enemies
+            if (def.bullets[i]->isTargetHit(CircleF(enemy[j]->GetPos(), enemy[j]->colRadius))) //Check collision against all enemies
             {
                 enemy[j]->TakeDmg(def.GetDmg());
-                gfx.DrawSprite((int)def.bullets[i]->pos.x, (int)(def.bullets[i]->pos.y - def.bullets[i]->radius) - 20, surf); //Draw blast in place of impact (temporary)
+                gfx.DrawSprite((int)def.bullets[i]->circle.center.x, (int)(def.bullets[i]->circle.center.y - def.bullets[i]->circle.r) - 20, surf); //Draw blast in place of impact (temporary)
             }
             if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i])); //Delete bullets if needed
             
@@ -88,10 +88,10 @@ void Game::UpdateModel(float dt)
             {
                 enemy[i]->bullets[j]->Update(dt, def.GetPos());
                 enemy[i]->bullets[j]->delete_offscreen(gfx); //Mark bullets that are off screen to be deleted
-                if (enemy[i]->bullets[j]->bHitTarget(def.GetPos(), def.colRadius)) //Check collision against the defender
+                if (enemy[i]->bullets[j]->isTargetHit(CircleF(def.GetPos(), def.colRadius))) //Check collision against the defender
                 {
                     def.TakeDmg(enemy[i]->GetDmg());
-                    gfx.DrawSprite((int)enemy[i]->bullets[j]->pos.x, (int)(enemy[i]->bullets[j]->pos.y - enemy[i]->bullets[j]->radius) + 20, surf); //Draw blast in place of impact (temporary)
+                    gfx.DrawSprite((int)enemy[i]->bullets[j]->circle.center.x, (int)(enemy[i]->bullets[j]->circle.center.y - enemy[i]->bullets[j]->circle.r) + 20, surf); //Draw blast in place of impact (temporary)
                 }
                 if (enemy[i]->bullets[j]->bDeleted) enemy[i]->bullets.erase(std::remove(enemy[i]->bullets.begin(), enemy[i]->bullets.end(), enemy[i]->bullets[j])); //Delete bullets if needed
             }

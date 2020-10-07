@@ -33,7 +33,7 @@ public:
 	void TakeDmg(float dmg);
 	const Vec2& GetPos();
 	float GetDmg() const;
-	bool DoDefenderColision(Defender&def);
+	//bool DoDefenderColision(Defender&def);
 
 	float colRadius = 30.0f;
 	bool bDead = false;

@@ -60,13 +60,6 @@ float Enemy::GetDmg() const
 	return dmg;
 }
 
-bool Enemy::DoDefenderColision(Defender& def)
-{
-	CircleF  cf;
-	float R = 50.0f;
-
-	return cf.isInside(pos.x, pos.y, R, def.GetPos());
-}
 
 void Enemy::Move(float dt)
 {
@@ -92,12 +85,8 @@ void Enemy::Shoot()
 		switch (firePattern)
 		{
 		case FirePattern::SingleBullet_Down:
-			bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), Colors::Red, 500.0f, dmg));
+			bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(pos.x, bottom), 6.0f), Vec2(0.0f, 1.0f), Colors::Yellow, 100.0f, dmg));
 			break;
-			//Triple shot
-			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(-0.5f, 1.0f), dmg, false));
-			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.0f, 1.0f), dmg, false));
-			//bullets.push_back(std::make_unique<Bullet>(Vec2(pos.x, bottom), Vec2(0.5f, 1.0f), dmg, false));
 		}
 	}
 }
