@@ -30,11 +30,11 @@ private:
 
 	Vec2 pos;
 	Vec2 dir{ 0.0f,0.0f };
-	static constexpr float colRadius = 50.0f;
-	static constexpr float width =75;
-	static constexpr float height=60;
+	static constexpr float colRadius = 30.0f;
+	static constexpr float width = 75.0f;
+	static constexpr float height= 60.0f;
 	float speed;
-	float health_max = 1000;
+	float health_max = 1000.0f;
 	float health_current = health_max;
 	float reloadTime_max = 0.3f;
 	float reloadTime_current = 0;

@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
     
 {
     enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(400.0f, 50.0f)));
-    //enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
+    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
 }
 
 void Game::Go()
@@ -65,6 +65,8 @@ void Game::UpdateModel(float dt)
     switch (GS)
     {
     case Game::GameState::GameOn:
+
+        while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f)));
 
         space.Update(dt, gfx);
         def.Update(wnd.kbd, gfx, dt);

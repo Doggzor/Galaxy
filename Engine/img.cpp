@@ -2045,7 +2045,7 @@ void img::HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHea
 	int nWidth = (int)fWidth;
 	const int nHeight = (int)height;
 	if (fWidth < 1.0f && fWidth > 0.0f) nWidth = 1;
-	gfx.DrawRectDim(x, y, nWidth, nHeight, Colors::MakeRGB(R, G, 0));
+	if(nWidth > 0) gfx.DrawRectDim(x, y, nWidth, nHeight, Colors::MakeRGB(R, G, 0));
 }
 
 void img::Explosion_Small(const Vec2& center, Graphics& gfx)
