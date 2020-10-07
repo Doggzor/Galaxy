@@ -1,32 +1,30 @@
 #include "CircleF.h"
 #include<cmath>
 
-CircleF::CircleF(float x, float y, float R, Color c)
+CircleF::CircleF(float x, float y, float r, Color c)
 	:
-	x{x},
-	y{y},
-	R{R},
-	c{c}
+	x(x),
+	y(y),
+	r(r),
+	c(c)
 {
 }
 
-CircleF::CircleF(Vec2& centar, float R, Color c)
+CircleF::CircleF(Vec2& center, float r, Color c)
 	:
-	CircleF(centar.x, centar.y, R, c)
+	CircleF(center.x, center.y, r, c)
 {
 }
 
-bool CircleF::IsOverLapingWitH(const Vec2& other, float R)
+bool CircleF::IsOverLapingWitH(const CircleF& other)
 {
-	  
-	return ((other.x - x) * (other.x - x) + (other.y - y) * (other.y - y) <= R * R);
+	const Vec2 center(x, y);
+	const Vec2 other_center(other.x, other.y);
+	return (other_center - center).GetLengthSq() < (other.r + r) * (other.r + r);
 
 }
 
-bool CircleF::isInside(float circle_x, float circle_y, float circle_rad, const Vec2& pos)
+bool CircleF::isContaining(const Vec2& coordinate)
 {
-	
-		// Compare radius of circle with distance  
-		// of its center from given point 
-	return ((pos.x - circle_x) * (pos.x - circle_x) + (pos.y - circle_y) * (pos.y - circle_y) <= circle_rad * circle_rad);
+	return (coordinate - Vec2(x, y)).GetLengthSq() < r * r;
 }

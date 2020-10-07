@@ -16,7 +16,7 @@ public:
 public:
 
 	float left;
-	float  right;
+	float right;
 	float top;
 	float bottom;
 
