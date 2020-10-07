@@ -145,6 +145,7 @@
     <ClInclude Include="Defender.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Explosion.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />

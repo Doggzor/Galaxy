@@ -32,6 +32,7 @@
 #include"Defender.h"
 #include"Surface.h"
 #include"Enemy.h"
+#include "Explosion.h"
 #include"CircleF.h"
 #include <memory>
 
@@ -63,14 +64,9 @@ private:
 		GamePaused
 	};
 	/********************************/
-
-
-	//Testing purposes:
 	GameState GS = GameState::GameOn;
-	int x = 400;
-	int y = 300;
 	Defender def;
-	Surface surf = Surface("vol333.bmp");
 	
-	std::vector < std::unique_ptr < Enemy > > enemy;
+	std::vector < std::unique_ptr < Enemy > > enemy; //Enemies
+	std::vector < std::unique_ptr < Explosion > > explo; //Explosions (visual purposes)
 }; 

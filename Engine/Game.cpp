@@ -76,7 +76,7 @@ void Game::UpdateModel(float dt)
             if (def.bullets[i]->isTargetHit(CircleF(enemy[j]->GetColCircle()))) //Check collision against all enemies
             {
                 enemy[j]->TakeDmg(def.GetDmg());
-                gfx.DrawSprite((int)def.bullets[i]->circle.center.x, (int)(def.bullets[i]->circle.center.y - def.bullets[i]->circle.r) - 20, surf); //Draw blast in place of impact (temporary)
+                explo.push_back(std::make_unique<Explosion>(def.bullets[i]->circle.center, Explosion::Size::Small)); //Create explosion at the site of impact
             }
             if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i])); //Delete bullets if needed
             
@@ -92,11 +92,20 @@ void Game::UpdateModel(float dt)
                 if (enemy[i]->bullets[j]->isTargetHit(def.GetColCircle())) //Check collision against the defender
                 {
                     def.TakeDmg(enemy[i]->GetDmg());
-                    gfx.DrawSprite((int)enemy[i]->bullets[j]->circle.center.x, (int)(enemy[i]->bullets[j]->circle.center.y - enemy[i]->bullets[j]->circle.r) + 20, surf); //Draw blast in place of impact (temporary)
+                    explo.push_back(std::make_unique<Explosion>(enemy[i]->bullets[j]->circle.center, Explosion::Size::Small)); //Create explosion at the site of impact
                 }
                 if (enemy[i]->bullets[j]->bDeleted) enemy[i]->bullets.erase(std::remove(enemy[i]->bullets.begin(), enemy[i]->bullets.end(), enemy[i]->bullets[j])); //Delete bullets if needed
             }
-            if (enemy[i]->bDead) enemy.erase(std::remove(enemy.begin(), enemy.end(), enemy[i])); //Delete enemies if needed
+            if (enemy[i]->bDead) //Check if any enemy is dead
+            {
+                explo.push_back(std::make_unique<Explosion>(enemy[i]->GetPos(), Explosion::Size::Medium)); //Create explosion where enemy died
+                enemy.erase(std::remove(enemy.begin(), enemy.end(), enemy[i])); //Delete dead enemies
+            }
+        }
+        for (int i = 0; i < explo.size(); i++) //Update and delete explosions
+        {
+            explo[i]->Update(dt);
+            if (explo[i]->bExpired) explo.erase(std::remove(explo.begin(), explo.end(), explo[i]));
         }
         break;
     case Game::GameState::GamePaused:
@@ -109,15 +118,18 @@ void Game::UpdateModel(float dt)
 void Game::ComposeFrame()
 { 
    // gfx.DrawSprite(0,0, surf);
-    space.Draw(gfx);
-    def.Draw(gfx);
-    for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Draw defender bullets
+    space.Draw(gfx); //Background
+    def.Draw(gfx); //Defender
+    for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Defender bullets
     
-    for (int i = 0; i < enemy.size(); i++) //Draw enemies
+    for (int i = 0; i < enemy.size(); i++) //Enemies
     {
         enemy[i]->Draw(gfx);
-        for (int j = 0; j < enemy[i]->bullets.size(); j++) enemy[i]->bullets[j]->Draw(gfx); //Draw enemy bullets
+        for (int j = 0; j < enemy[i]->bullets.size(); j++) enemy[i]->bullets[j]->Draw(gfx); //Enemy bullets
     }
+
+    for (int i = 0; i < explo.size(); i++) explo[i]->Draw(gfx); //Explosions
+
 
 }
 

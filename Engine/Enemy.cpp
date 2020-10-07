@@ -113,7 +113,7 @@ void Enemy::Shoot()
 		switch (firePattern)
 		{
 		case FirePattern::SingleBullet_Down:
-			bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(pos.x, bottom), 6.0f), Vec2(0.0f, 1.0f), Colors::Red, 100.0f, dmg));
+			bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(pos.x, bottom), 6.0f), Vec2(0.0f, 1.0f), Colors::Red, 500.0f, dmg));
 			break;
 		}
 	}
