@@ -1,23 +1,17 @@
 #pragma once
-#include"Graphics.h"
+#include"Vec2.h"
 class CircleF
 {
 public:
 
 	CircleF()= default;
-	CircleF(float x, float y, float r, Color c);
-	CircleF(Vec2& center, float r, Color c);
+	CircleF(Vec2 center, float r);
 	bool IsOverLapingWitH(const CircleF& other);
 	bool isContaining(const Vec2& coordinate);
 	
 
 public:
-	Color c;
-	float x;
-	float y;
+	Vec2 center;
 	float r;
-
-
-
 };
 
