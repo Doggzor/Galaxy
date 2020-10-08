@@ -12,7 +12,7 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 		height = 40.0f;
 		colRadius = 30.0f;
 		speed = 200.0f;
-		health_max = 200.0f;
+		health_max = 90.0f;
 		dmg = 10.0f;
 		collision_dmg = 100.0f;
 		reloadTime_max = 0.3f;

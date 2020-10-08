@@ -7,8 +7,7 @@ struct Explosion
 	enum class Size
 	{
 		Small,
-		Medium,
-		Large
+		Medium
 	};
 	Explosion(const Vec2& pos, Size size)
 		:
@@ -21,10 +20,10 @@ struct Explosion
 			duration = 0.1f;
 			break;
 		case Size::Medium:
-			duration = 0.25f;
+			duration = 0.24f;
 			break;
 		default:
-			duration = 0.1f;
+			duration = 0.0f;
 
 		}
 	}
@@ -41,7 +40,10 @@ struct Explosion
 			img::Explosion_Small(pos, gfx);
 			break;
 		case Size::Medium:
-			img::Explosion_Medium(pos, gfx);
+			if (duration > 0.18f) img::ExploM0(pos, gfx);
+			else if (duration > 0.12f) img::ExploM1(pos, gfx);
+			else if (duration > 0.06f) img::ExploM2(pos, gfx);
+			else img::ExploM3(pos, gfx);
 			break;
 		}
 
