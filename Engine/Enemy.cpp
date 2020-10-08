@@ -13,7 +13,6 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 	case Model::test:
 		width = 40.0f;
 		height = 40.0f;
-		colRadius = 30.0f;
 		speed = 60.0f;
 		health_max = 90.0f;
 		dmg = 10.0f;
@@ -25,7 +24,6 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 	case Model::Mine:
 		width = 58.0f;
 		height = 58.0f;
-		colRadius = 58.0f;
 		speed = 30.0f;
 		health_max = 350.0f;
 		collision_dmg = 250.0f;
@@ -35,6 +33,7 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 	}
 	health_current = health_max;
 	reloadTime_current = reloadTime_max;
+	colRadius = std::max(width, height) / 2.0f;
 	fMoveTimer = 0;
 
 }
