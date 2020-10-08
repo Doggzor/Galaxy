@@ -18,7 +18,7 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 		health_max = 90.0f;
 		dmg = 10.0f;
 		collision_dmg = 100.0f;
-		reloadTime_max = 0.3f;
+		reloadTime_max = 1.2f;
 		if(MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::Sinusoid_Down;
 		if(FirePattern == FirePattern::ModelDefault) firePattern = FirePattern::SingleBullet_Down;
 		break;
@@ -27,9 +27,9 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 		height = 58.0f;
 		colRadius = 58.0f;
 		speed = 30.0f;
-		health_max = 250.0f;
+		health_max = 350.0f;
 		collision_dmg = 250.0f;
-		if (MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::None;
+		if (MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::StraightDown;
 		if (FirePattern == FirePattern::ModelDefault) firePattern = FirePattern::None;
 		break;
 	}
@@ -115,7 +115,7 @@ void Enemy::Move(float dt)
 	pos.y += speed * dt;
 	switch (movePattern)
 	{
-	case MovePattern::None:
+	case MovePattern::StraightDown:
 		break;
 	case MovePattern::Sinusoid_Down:
 		fMoveTimer += 2.4f * dt;

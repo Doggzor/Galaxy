@@ -18,7 +18,7 @@ public:
 	};
 	enum class MovePattern
 	{
-		None,
+		StraightDown,
 		Sinusoid_Down,
 		ModelDefault
 	};
