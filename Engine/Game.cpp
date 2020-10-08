@@ -32,6 +32,9 @@ Game::Game( MainWindow& wnd )
 {
     enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(400.0f, 50.0f)));
     enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
+
+    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::Mine, Vec2(200.0f, 50.0f)));
+    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::Mine, Vec2(1000.0f, 50.0f)));
 }
 
 void Game::Go()

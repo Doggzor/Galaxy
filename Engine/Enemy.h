@@ -13,15 +13,18 @@ class Enemy
 public:
 	enum class Model
 	{
-		test
+		test,
+		Mine
 	};
 	enum class MovePattern
 	{
+		None,
 		Sinusoid_Down,
 		ModelDefault
 	};
 	enum class FirePattern
 	{
+		None,
 		SingleBullet_Down,
 		ModelDefault
 	};

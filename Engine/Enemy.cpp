@@ -5,19 +5,32 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 	model(model),
 	pos(pos)
 {
+	movePattern = MovePattern;
+	firePattern = FirePattern;
+
 	switch (model)
 	{
 	case Model::test:
 		width = 40.0f;
 		height = 40.0f;
 		colRadius = 30.0f;
-		speed = 200.0f;
+		speed = 60.0f;
 		health_max = 90.0f;
 		dmg = 10.0f;
 		collision_dmg = 100.0f;
 		reloadTime_max = 0.3f;
 		if(MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::Sinusoid_Down;
 		if(FirePattern == FirePattern::ModelDefault) firePattern = FirePattern::SingleBullet_Down;
+		break;
+	case Model::Mine:
+		width = 58.0f;
+		height = 58.0f;
+		colRadius = 58.0f;
+		speed = 30.0f;
+		health_max = 250.0f;
+		collision_dmg = 250.0f;
+		if (MovePattern == MovePattern::ModelDefault) movePattern = MovePattern::None;
+		if (FirePattern == FirePattern::ModelDefault) firePattern = FirePattern::None;
 		break;
 	}
 	health_current = health_max;
@@ -28,11 +41,19 @@ Enemy::Enemy(const Model model, const Vec2& pos, const MovePattern MovePattern, 
 
 void Enemy::Draw(Graphics& gfx)
 {
-	int x = int(pos.x - width / 2.0f);
-	int y = int(pos.y - height / 2.0f);
+	const Vec2 HP_Bar_topleft = Vec2(pos.x - width / 2.0f, pos.y - height / 2.0f - 10.0f);
 
-	img::TestEnemy(x, y, gfx);
-	img::HP_Bar(Vec2((float)x, (float)y - 10.0f), width, 5.0f, health_max, health_current, gfx);
+	switch (model)
+	{
+	case Model::test:
+		img::TestEnemy(pos, gfx);
+		break;
+	case Model::Mine:
+		img::Enemy_Mine(pos, gfx);
+		break;
+	}
+
+	img::HP_Bar(HP_Bar_topleft, width, 5.0f, health_max, health_current, gfx);
 }
 
 void Enemy::Update(float dt, Graphics& gfx)
@@ -91,12 +112,14 @@ CircleF Enemy::GetColCircle() const
 
 void Enemy::Move(float dt)
 {
+	pos.y += speed * dt;
 	switch (movePattern)
 	{
+	case MovePattern::None:
+		break;
 	case MovePattern::Sinusoid_Down:
 		fMoveTimer += 2.4f * dt;
 		pos.x += 400.0f * cos(fMoveTimer) * dt;
-		pos.y += 60.0f * dt;
 		break;
 	}
 	
@@ -112,6 +135,8 @@ void Enemy::Shoot()
 
 		switch (firePattern)
 		{
+		case FirePattern::None:
+			break;
 		case FirePattern::SingleBullet_Down:
 			bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(pos.x, bottom), 6.0f), Vec2(0.0f, 1.0f), Colors::Red, 500.0f, dmg));
 			break;
