@@ -30,11 +30,6 @@ Game::Game( MainWindow& wnd )
     def(Vec2(400.0f, 600.0f), 300.0f)
     
 {
-    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(400.0f, 50.0f)));
-    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(800.0f, 50.0f)));
-
-    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::Mine, Vec2(200.0f, 50.0f)));
-    enemy.push_back(std::make_unique <Enemy>(Enemy::Model::Mine, Vec2(1000.0f, 50.0f)));
 }
 
 void Game::Go()
@@ -69,7 +64,11 @@ void Game::UpdateModel(float dt)
     {
     case Game::GameState::GameOn:
 
-        while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f)));
+        fElapsedTime += dt; //Measures time passed from the start of the game
+        nWave = -1 + (int)(fElapsedTime / 3.0f); //Increases the wave by 1 every 3 seconds (temporary)
+        SpawnWave(nWave);  //Spawn the current wave of enemies
+
+        //while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f)));
 
         space.Update(dt, gfx);
         def.Update(wnd.kbd, gfx, dt);
