@@ -103,7 +103,8 @@ void Game::UpdateModel(float dt)
             if (enemy[i]->bDead) //Check if any enemy is dead
             {
                 explo.push_back(std::make_unique<Explosion>(enemy[i]->GetPos(), Explosion::Size::Medium)); //Create explosion where enemy died
-                enemy.erase(std::remove(enemy.begin(), enemy.end(), enemy[i])); //Delete dead enemies
+                enemy[i]->mark_remove(gfx); //Mark enemies that need to be deleted
+                if(enemy[i]->BulletCount() == 0) enemy.erase(std::remove(enemy.begin(), enemy.end(), enemy[i])); //Delete dead enemies when all their bullets are deleted
             }
         }
         for (int i = 0; i < explo.size(); i++) //Update and delete explosions

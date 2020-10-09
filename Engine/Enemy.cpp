@@ -58,14 +58,15 @@ void Enemy::Draw(Graphics& gfx)
 void Enemy::Update(float dt, Graphics& gfx)
 {
 	if( health_current <= 0 ||
-		(pos.y - height / 2.0f > (float)gfx.ScreenBottom + 15.0f && bullets.size() == 0)) //Enemy (and his health bar) went donw off screen boundaries and all his bullets are destroyed
+		(pos.y - height / 2.0f > (float)gfx.ScreenBottom + 15.0f)) //Enemy (and his health bar) went down off screen boundaries
 		bDead = true;
 
-	if (pos.y - height / 2.0f <= (float)gfx.ScreenBottom + 15.0f) Move(dt); //Move only if enemy (and his health bar) didn't go thorugh the bottom of the screen
+	if (pos.y - height / 2.0f <= (float)gfx.ScreenBottom + 15.0f) //Move and shoot only if enemy (and his health bar) didn't go thorugh the bottom of the screen
+	{
+		Move(dt);
+		Shoot();
+	}
 	reloadTime_current -= dt;
-	
-	Shoot();
-
 }
 
 void Enemy::TakeDmg(float dmg)
@@ -108,6 +109,16 @@ CircleF Enemy::GetColCircle() const
 	return CircleF(pos, colRadius);
 }
 
+void Enemy::mark_remove(Graphics& gfx)
+{
+	if (bDead) pos.y = (float)gfx.ScreenBottom + 15.0f + height / 2.0f;
+}
+
+
+const int Enemy::BulletCount() const
+{
+	return (int)bullets.size();
+}
 
 void Enemy::Move(float dt)
 {

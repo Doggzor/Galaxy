@@ -38,11 +38,13 @@ public:
 	bool hasCrashedInto(const CircleF& circle);
 	bool hasCrashedInto(const Vec2& coordinate);
 	CircleF GetColCircle() const;
+	void mark_remove(Graphics& gfx);
 
 	float collision_dmg = 0;
 	bool bDead = false;
 
 	std::vector < std::unique_ptr<Bullet>> bullets;
+	const int BulletCount() const; //Used to determine if enemy should beremoved from game
 
 private:
 	void Move(float dt);
