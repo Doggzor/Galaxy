@@ -19,7 +19,6 @@ public:
 	Vec2 GetPos() const;
 	CircleF GetColCircle() const;
 	float GetDmg() const;
-	//void Respawn();
 	bool bDead = false;
 
 	std::vector<std::unique_ptr <Bullet> > bullets;

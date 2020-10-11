@@ -34,6 +34,7 @@
 #include"Enemy.h"
 #include "Explosion.h"
 #include"CircleF.h"
+#include "Button.h"
 #include <memory>
 
 
@@ -60,11 +61,15 @@ private:
 	Space space;
 	enum class GameState
 	{
-		GameOn,
-		GamePaused
+		SelectionScreen,
+		Playing,
+		Paused
 	};
 	/********************************/
-	GameState GS = GameState::GameOn;
+	GameState GameState = GameState::SelectionScreen;
+	Button button_diff_easy;
+	Button button_diff_normal;
+	Button button_diff_hard;
 	Defender def;
 	
 	std::vector < std::unique_ptr < Enemy > > enemy; //Enemies
@@ -80,7 +85,7 @@ private:
 	/**************************************   L E V E L   C R E A T I O N   **************************************/
 	void SpawnWave(int wave)
 	{
-		if (wave >= 0 && wave <= nWavesMax)
+		if (wave >= 0 && wave < nWavesMax)
 		{
 			if (!isSpawned[wave])
 			{

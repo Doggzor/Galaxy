@@ -9,13 +9,18 @@
 class img
 {
 public:
+	//Spaceships
 	//75x60
 	static void TestAircraft(int x, int y, Graphics& gfx);
 	//40x40
 	static void TestEnemy(const Vec2& center, Graphics& gfx);
 	//58x58
 	static void Enemy_Mine(const Vec2& center, Graphics& gfx);
+
+	//HP bar
 	static void HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHealth, float currentHealth, Graphics& gfx);
+
+	//Explosions
 	//20x20
 	static void Explosion_Small(const Vec2& center, Graphics& gfx);
 	//24x24
@@ -26,4 +31,5 @@ public:
 	static void ExploM2(const Vec2& center, Graphics& gfx);
 	//34x34
 	static void ExploM3(const Vec2& center, Graphics& gfx);
+
 };

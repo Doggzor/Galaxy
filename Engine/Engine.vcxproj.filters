@@ -99,6 +99,9 @@
     <ClInclude Include="Explosion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -241,6 +244,33 @@
     </Image>
     <Image Include="..\..\..\..\OneDrive\Desktop\Eksplozije\intro.bmp">
       <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="button_easy_hovered.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_easy_selected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_easy_unselected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_hard_hovered.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_hard_selected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_hard_unselected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_normal_hovered.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_normal_selected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="button_normal_unselected.bmp">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

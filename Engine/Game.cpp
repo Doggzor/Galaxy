@@ -27,9 +27,13 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f, 600.0f), 300.0f)
+    def(Vec2(400.0f, 600.0f), 300.0f),
+    button_diff_easy(200, 500, Surface("button_easy_unselected.bmp"), Surface("button_easy_hovered.bmp"), Surface("button_easy_selected.bmp")),
+    button_diff_normal(299, 500, Surface("button_normal_unselected.bmp"), Surface("button_normal_hovered.bmp"), Surface("button_normal_selected.bmp")),
+    button_diff_hard(454, 500, Surface("button_hard_unselected.bmp"), Surface("button_hard_hovered.bmp"), Surface("button_hard_selected.bmp"))
     
 {
+    button_diff_hard.bHoveredOver = true;
 }
 
 void Game::Go()
@@ -48,21 +52,16 @@ void Game::Go()
 }
 
 void Game::UpdateModel(float dt)
-{
-    
-    if (wnd.kbd.KeyIsPressed(VK_SPACE))
+{    
+    switch (GameState)
     {
-        GS = GameState::GameOn;
-    }
-    if (GS != GameState::GameOn)
-    {
-        GS = GameState::GamePaused;
-   }
-    
-    
-    switch (GS)
-    {
-    case Game::GameState::GameOn:
+    case GameState::SelectionScreen:
+
+        button_diff_easy.Update(wnd.kbd);
+        button_diff_normal.Update(wnd.kbd);
+        button_diff_hard.Update(wnd.kbd);
+
+    case Game::GameState::Playing:
 
         fElapsedTime += dt; //Measures time passed from the start of the game
         nWave = -1 + (int)(fElapsedTime / 3.0f); //Increases the wave by 1 every 3 seconds (temporary)
@@ -113,7 +112,7 @@ void Game::UpdateModel(float dt)
             if (explo[i]->bExpired) explo.erase(std::remove(explo.begin(), explo.end(), explo[i]));
         }
         break;
-    case Game::GameState::GamePaused:
+    case Game::GameState::Paused:
         break;
     }
    
@@ -122,19 +121,25 @@ void Game::UpdateModel(float dt)
 
 void Game::ComposeFrame()
 { 
-   // gfx.DrawSprite(0,0, surf);
-    space.Draw(gfx); //Background
-    def.Draw(gfx); //Defender
-    for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Defender bullets
-    
-    for (int i = 0; i < enemy.size(); i++) //Enemies
+    switch (GameState)
     {
-        enemy[i]->Draw(gfx);
-        for (int j = 0; j < enemy[i]->bullets.size(); j++) enemy[i]->bullets[j]->Draw(gfx); //Enemy bullets
+    case GameState::Playing:
+        space.Draw(gfx); //Background
+        def.Draw(gfx); //Defender
+        for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Defender bullets
+
+        for (int i = 0; i < enemy.size(); i++) //Enemies
+        {
+            enemy[i]->Draw(gfx);
+            for (int j = 0; j < enemy[i]->bullets.size(); j++) enemy[i]->bullets[j]->Draw(gfx); //Enemy bullets
+        }
+
+        for (int i = 0; i < explo.size(); i++) explo[i]->Draw(gfx); //Explosions
+
+    case GameState::SelectionScreen:
+        button_diff_easy.Draw(gfx);
+        button_diff_normal.Draw(gfx);
+        button_diff_hard.Draw(gfx);
     }
-
-    for (int i = 0; i < explo.size(); i++) explo[i]->Draw(gfx); //Explosions
-
-
 }
 
