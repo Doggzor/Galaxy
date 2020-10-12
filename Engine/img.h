@@ -19,6 +19,8 @@ public:
 
 	//HP bar
 	static void HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHealth, float currentHealth, Graphics& gfx);
+	//Status bar
+	static void Status_Bar(const Vec2& topleft, float maxWidth, float height, float maxValue, float currentValue, Color c, Graphics& gfx);
 
 	//Explosions
 	//20x20

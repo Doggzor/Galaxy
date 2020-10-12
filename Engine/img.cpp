@@ -4544,11 +4544,26 @@ void img::HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHea
 	const int x = (int)topleft.x;
 	const int y = (int)topleft.y;
 	//Width
-	const float fWidth = maxWidth * (currentHealth / maxHealth);
+	float fWidth;
+	if (currentHealth <= maxHealth)  fWidth = maxWidth * (currentHealth / maxHealth);
+	else fWidth = maxWidth;
 	int nWidth = (int)fWidth;
 	const int nHeight = (int)height;
 	if (fWidth < 1.0f && fWidth > 0.0f) nWidth = 1;
 	if(nWidth > 0) gfx.DrawRectDim(x, y, nWidth, nHeight, Colors::MakeRGB(R, G, 0));
+}
+
+void img::Status_Bar(const Vec2& topleft, float maxWidth, float height, float maxValue, float currentValue, Color c, Graphics& gfx)
+{
+	const int x = (int)topleft.x;
+	const int y = (int)topleft.y;
+	float fWidth;
+	if (currentValue <= maxValue)  fWidth = maxWidth * (currentValue / maxValue);
+	else fWidth = maxWidth;
+	int nWidth = (int)fWidth;
+	const int nHeight = (int)height;
+	if (fWidth < 1.0f && fWidth > 0.0f) nWidth = 1;
+	if (nWidth > 0) gfx.DrawRectDim(x, y, nWidth, nHeight, c);
 }
 
 void img::Explosion_Small(const Vec2& center, Graphics& gfx)
