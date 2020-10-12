@@ -66,7 +66,7 @@ private:
 		Paused
 	};
 	/********************************/
-	GameState GameState = GameState::SelectionScreen;
+	GameState GameState = GameState::Playing;
 	Vec2 pointer = { 600.0f, 500.0f };
 	Button btn_diff_easy;
 	Button btn_diff_normal;
