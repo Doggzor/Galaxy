@@ -15,14 +15,13 @@ public:
 		hoveredOver(hoveredOver),
 		selected(selected)
 	{
+		button = { Vec2((float)x, (float)y), 100.0f, 35.0f };
 	}
-	void Update(Keyboard& kbd)
+	void Update(const Keyboard& kbd, const Vec2& pointer)
 	{
-		if (bHoveredOver && kbd.KeyIsPressed(VK_RETURN))
-		{
-			if (!bSelected) bSelected = true;
-			else bSelected = false;
-		}
+		bHoveredOver = button.isContaining(pointer);
+
+		if (bHoveredOver && kbd.KeyIsPressed(VK_RETURN)) bSelected = true;
 	}
 	void Draw(Graphics& gfx)
 	{
@@ -33,6 +32,7 @@ public:
 
 	int x;
 	int y;
+	RectF button;
 	bool bSelected = false;
 	bool bHoveredOver = false;
 	Surface unselected;

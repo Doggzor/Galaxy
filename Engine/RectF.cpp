@@ -22,9 +22,14 @@ RectF::RectF(const Vec2& topleft, float width, float height)
 {
 }
 
-bool RectF::isOverLappingWith(const RectF& other)
+bool RectF::isOverLappingWith(const RectF& other) const
 {
 	return right>other.left&& left<other.right&& bottom>other.top&& top<other.bottom;
+}
+
+bool RectF::isContaining(const Vec2& point) const
+{
+	return point.x > left && point.x < right && point.y > top && point.y < bottom;
 }
 
 RectF RectF::FromCenter(const Vec2& center, float width, float height)

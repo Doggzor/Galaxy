@@ -66,10 +66,11 @@ private:
 		Paused
 	};
 	/********************************/
-	GameState GameState = GameState::SelectionScreen;
-	Button button_diff_easy;
-	Button button_diff_normal;
-	Button button_diff_hard;
+	GameState GameState = GameState::Playing;
+	Vec2 pointer = { 600.0f, 500.0f };
+	Button btn_diff_easy;
+	Button btn_diff_normal;
+	Button btn_diff_hard;
 	Defender def;
 	
 	std::vector < std::unique_ptr < Enemy > > enemy; //Enemies

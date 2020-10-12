@@ -20,7 +20,6 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include<iostream>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -28,12 +27,11 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
     def(Vec2(400.0f, 600.0f), 300.0f),
-    button_diff_easy(200, 500, Surface("button_easy_unselected.bmp"), Surface("button_easy_hovered.bmp"), Surface("button_easy_selected.bmp")),
-    button_diff_normal(299, 500, Surface("button_normal_unselected.bmp"), Surface("button_normal_hovered.bmp"), Surface("button_normal_selected.bmp")),
-    button_diff_hard(454, 500, Surface("button_hard_unselected.bmp"), Surface("button_hard_hovered.bmp"), Surface("button_hard_selected.bmp"))
+    btn_diff_easy(200, 500, Surface("button_easy_unselected.bmp"), Surface("button_easy_hovered.bmp"), Surface("button_easy_selected.bmp")),
+    btn_diff_normal(299, 500, Surface("button_normal_unselected.bmp"), Surface("button_normal_hovered.bmp"), Surface("button_normal_selected.bmp")),
+    btn_diff_hard(454, 500, Surface("button_hard_unselected.bmp"), Surface("button_hard_hovered.bmp"), Surface("button_hard_selected.bmp"))
     
 {
-    button_diff_hard.bHoveredOver = true;
 }
 
 void Game::Go()
@@ -57,9 +55,33 @@ void Game::UpdateModel(float dt)
     {
     case GameState::SelectionScreen:
 
-        button_diff_easy.Update(wnd.kbd);
-        button_diff_normal.Update(wnd.kbd);
-        button_diff_hard.Update(wnd.kbd);
+        Vec2 dir = { 0, 0 };
+        if (wnd.kbd.KeyIsPressed(VK_LEFT)) dir.x -= 1.0f;
+        if (wnd.kbd.KeyIsPressed(VK_RIGHT)) dir.x += 1.0f;
+        if (wnd.kbd.KeyIsPressed(VK_UP)) dir.y -= 1.0f;
+        if (wnd.kbd.KeyIsPressed(VK_DOWN)) dir.y += 1.0f;
+        pointer += dir.GetNormalized() * 300.0f * dt;
+
+        btn_diff_easy.Update(wnd.kbd, pointer);
+        if (btn_diff_easy.bSelected)
+        {
+            btn_diff_normal.bSelected = false;
+            btn_diff_hard.bSelected = false;
+        }
+        btn_diff_normal.Update(wnd.kbd, pointer);
+        if (btn_diff_normal.bSelected)
+        {
+            btn_diff_easy.bSelected = false;
+            btn_diff_hard.bSelected = false;
+        }
+        btn_diff_hard.Update(wnd.kbd, pointer);
+        if (btn_diff_hard.bSelected)
+        {
+            btn_diff_easy.bSelected = false;
+            btn_diff_normal.bSelected = false;
+        }
+
+        break;
 
     case Game::GameState::Playing:
 
@@ -67,7 +89,7 @@ void Game::UpdateModel(float dt)
         nWave = -1 + (int)(fElapsedTime / 3.0f); //Increases the wave by 1 every 3 seconds (temporary)
         SpawnWave(nWave);  //Spawn the current wave of enemies
 
-        //while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f)));
+        while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f))); //Infinite enemies just for testing
 
         space.Update(dt, gfx);
         def.Update(wnd.kbd, gfx, dt);
@@ -124,6 +146,7 @@ void Game::ComposeFrame()
     switch (GameState)
     {
     case GameState::Playing:
+
         space.Draw(gfx); //Background
         def.Draw(gfx); //Defender
         for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Defender bullets
@@ -136,10 +159,17 @@ void Game::ComposeFrame()
 
         for (int i = 0; i < explo.size(); i++) explo[i]->Draw(gfx); //Explosions
 
+        break;
+
     case GameState::SelectionScreen:
-        button_diff_easy.Draw(gfx);
-        button_diff_normal.Draw(gfx);
-        button_diff_hard.Draw(gfx);
+
+        btn_diff_easy.Draw(gfx);
+        btn_diff_normal.Draw(gfx);
+        btn_diff_hard.Draw(gfx);
+
+        gfx.DrawCircleEmpty((int)pointer.x, (int)pointer.y, 6, Colors::Orange); //Pointer
+
+        break;
     }
 }
 
