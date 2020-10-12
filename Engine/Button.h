@@ -7,15 +7,13 @@
 struct Button
 {
 public:
-	Button(int x, int y, const Surface& unselected, const Surface& hoveredOver, const Surface& selected)
+	Button(const RectF& rect, const Surface& unselected, const Surface& hoveredOver, const Surface& selected)
 		:
-		x(x),
-		y(y),
+		button(rect),
 		unselected(unselected),
 		hoveredOver(hoveredOver),
 		selected(selected)
 	{
-		button = { Vec2((float)x, (float)y), 100.0f, 35.0f };
 	}
 	void Update(const Keyboard& kbd, const Vec2& pointer)
 	{
@@ -25,13 +23,13 @@ public:
 	}
 	void Draw(Graphics& gfx)
 	{
+		int x = (int)button.left;
+		int y = (int)button.top;
 		if (bSelected) gfx.DrawSprite(x, y, selected);
 		else if (bHoveredOver) gfx.DrawSprite(x, y, hoveredOver);
 		else gfx.DrawSprite(x, y, unselected);
 	}
 
-	int x;
-	int y;
 	RectF button;
 	bool bSelected = false;
 	bool bHoveredOver = false;

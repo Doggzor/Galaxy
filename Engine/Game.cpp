@@ -27,9 +27,9 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
     def(Vec2(400.0f, 600.0f), 300.0f),
-    btn_diff_easy(200, 500, Surface("button_easy_unselected.bmp"), Surface("button_easy_hovered.bmp"), Surface("button_easy_selected.bmp")),
-    btn_diff_normal(299, 500, Surface("button_normal_unselected.bmp"), Surface("button_normal_hovered.bmp"), Surface("button_normal_selected.bmp")),
-    btn_diff_hard(454, 500, Surface("button_hard_unselected.bmp"), Surface("button_hard_hovered.bmp"), Surface("button_hard_selected.bmp"))
+    btn_diff_easy({ 200.0f, 295.0f, 500.0f, 535.0f }, Surface("button_easy_unselected.bmp"), Surface("button_easy_hovered.bmp"), Surface("button_easy_selected.bmp")),
+    btn_diff_normal({ 299.0f, 449.0f, 500.0f, 535.0f }, Surface("button_normal_unselected.bmp"), Surface("button_normal_hovered.bmp"), Surface("button_normal_selected.bmp")),
+    btn_diff_hard({ 454.0f, 554.0f, 500.0f, 535.0f }, Surface("button_hard_unselected.bmp"), Surface("button_hard_hovered.bmp"), Surface("button_hard_selected.bmp"))
     
 {
 }
