@@ -66,6 +66,23 @@ void Game::UpdateModel(float dt)
         if (wnd.kbd.KeyIsPressed(VK_UP)) dir.y -= 1.0f;
         if (wnd.kbd.KeyIsPressed(VK_DOWN)) dir.y += 1.0f;
         pointer += dir.GetNormalized() * 500.0f * dt;
+        if (pointer.x > float(gfx.ScreenRight) - 6.0f)
+        {
+            pointer.x = float(gfx.ScreenRight) - 6.0f;
+        }
+        else if (pointer.x <= float(gfx.ScreenLeft) + 6.0f)
+        {
+            pointer.x = float(gfx.ScreenLeft) + 6.0f;
+        }
+        if (pointer.y <= float(gfx.ScreenTop) + 6.0f)
+        {
+            pointer.y = float(gfx.ScreenTop) + 6.0f;
+        }
+        else if (pointer.y > float(gfx.ScreenBottom) - 6.0f)
+        {
+            pointer.y = float(gfx.ScreenBottom) - 6.0f;
+
+        }
 
         //Defender selection
         btn_interceptor.Update(wnd.kbd, pointer);
