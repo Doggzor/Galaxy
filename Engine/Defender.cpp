@@ -1,13 +1,12 @@
 #include "Defender.h"
 
-Defender::Defender(const Vec2& pos, const Model model, const Difficulty difficulty)
+Defender::Defender(const Vec2& pos, const Model model, const Difficulty diff)
 	:
 	pos(pos),
 	model(model)
 	
 {
-    SetDifficulty(difficulty);
-
+    SetDifficulty(diff);
     switch (model)
     {
     case Model::Fighter:
@@ -163,8 +162,10 @@ float Defender::GetDmg() const
 }
 
 
-void Defender::SetDifficulty(const Difficulty difficulty)
+void Defender::SetDifficulty(const Difficulty diff)
 {
+    difficulty = diff;
+
     switch (difficulty)
     {
     case Difficulty::Easy:

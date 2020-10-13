@@ -23,7 +23,7 @@ public:
 		Battleship
 	};
 	Defender() = default;
-	Defender(const Vec2& pos, const Model model, const Difficulty difficulty);
+	Defender(const Vec2& pos, const Model model, const Difficulty diff);
 	void Draw(Graphics& gfx);
 	void Update(Keyboard& kbd,Graphics&gfx,float dt);
 	void TakeDmg(float dmg);
@@ -32,23 +32,23 @@ public:
 	float GetDmg() const;
 	bool bDead = false;
 
-	std::vector<std::unique_ptr <Bullet> > bullets;
-
-	void SetDifficulty(const Difficulty difficulty);
+	std::vector<std::unique_ptr <Bullet> > bullets;	
 
 private:
 
-	void Shoot();
-
+	void SetDifficulty(const Difficulty diff);
+	Difficulty difficulty = Difficulty::Normal;
 	float diff_multiplier = 1.0f;
 
-	Model model;
-	Vec2 pos;
+	void Shoot();
+
+	Model model = Model::Fighter;
+	Vec2 pos = { 0, 0 };
 	Vec2 dir{ 0.0f,0.0f };
 	float width = 75.0f;
 	float height= 60.0f;
 	float colRadius = 30.0f;
-	float speed;
+	float speed = 0;
 	float health_max = 1000.0f;
 	float health_current = health_max;
 	float shield_max = 0;

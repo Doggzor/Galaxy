@@ -62,15 +62,18 @@ private:
 	enum class GameState
 	{
 		SelectionScreen,
+		Loading,
 		Playing,
 		Paused
 	};
 	/********************************/
-	GameState GameState = GameState::Playing;
+	GameState GameState = GameState::SelectionScreen;
 	Vec2 pointer = { 600.0f, 500.0f };
 	Button btn_diff_easy;
 	Button btn_diff_normal;
 	Button btn_diff_hard;
+	Button btn_start_inactive;
+	Button btn_start_active;
 	Defender def;
 	
 	std::vector < std::unique_ptr < Enemy > > enemy; //Enemies

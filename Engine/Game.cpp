@@ -26,10 +26,11 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
     space(fWorldSpeed, gfx),
-    def(Vec2(400.0f, 600.0f), Defender::Model::Fighter, Defender::Difficulty::Normal),
-    btn_diff_easy({ 200.0f, 295.0f, 500.0f, 535.0f }, Surface("button_easy_unselected.bmp"), Surface("button_easy_hovered.bmp"), Surface("button_easy_selected.bmp")),
-    btn_diff_normal({ 299.0f, 449.0f, 500.0f, 535.0f }, Surface("button_normal_unselected.bmp"), Surface("button_normal_hovered.bmp"), Surface("button_normal_selected.bmp")),
-    btn_diff_hard({ 454.0f, 554.0f, 500.0f, 535.0f }, Surface("button_hard_unselected.bmp"), Surface("button_hard_hovered.bmp"), Surface("button_hard_selected.bmp"))
+    btn_diff_easy({ 200.0f, 295.0f, 500.0f, 535.0f }, Surface("btn_easy_unselected.bmp"), Surface("btn_easy_hovered.bmp"), Surface("btn_easy_selected.bmp")),
+    btn_diff_normal({ 299.0f, 449.0f, 500.0f, 535.0f }, Surface("btn_normal_unselected.bmp"), Surface("btn_normal_hovered.bmp"), Surface("btn_normal_selected.bmp")),
+    btn_diff_hard({ 454.0f, 554.0f, 500.0f, 535.0f }, Surface("btn_hard_unselected.bmp"), Surface("btn_hard_hovered.bmp"), Surface("btn_hard_selected.bmp")),
+    btn_start_inactive({550.0f, 670.0f, 600.0f, 635.0f}, Surface("btn_StartInactive.bmp"), Surface("btn_StartInactive.bmp"), Surface("btn_StartInactive.bmp")),
+    btn_start_active({ 550.0f, 670.0f, 600.0f, 635.0f }, Surface("btn_StartActive_unselected.bmp"), Surface("btn_StartActive_hovered.bmp"), Surface("btn_StartActive_hovered.bmp"))
     
 {
 }
@@ -81,6 +82,20 @@ void Game::UpdateModel(float dt)
             btn_diff_normal.bSelected = false;
         }
 
+        if (btn_diff_easy.bSelected || btn_diff_normal.bSelected || btn_diff_hard.bSelected) btn_start_active.Update(wnd.kbd, pointer); //Able to start game only if difficulty is selected
+        if (btn_start_active.bSelected) GameState = GameState::Loading;
+
+        break;
+
+    case GameState::Loading:
+
+        Defender::Difficulty diff;
+        diff = Defender::Difficulty::Easy;
+        if (btn_diff_easy.bSelected) diff = Defender::Difficulty::Easy;
+        else if (btn_diff_normal.bSelected) diff = Defender::Difficulty::Normal;
+        else if (btn_diff_hard.bSelected) diff = Defender::Difficulty::Hard;
+        def = { Vec2(400.0f, 600.0f), Defender::Model::Fighter, diff };
+        GameState = GameState::Playing;
         break;
 
     case Game::GameState::Playing:
@@ -166,6 +181,8 @@ void Game::ComposeFrame()
         btn_diff_easy.Draw(gfx);
         btn_diff_normal.Draw(gfx);
         btn_diff_hard.Draw(gfx);
+        if (btn_diff_easy.bSelected || btn_diff_normal.bSelected || btn_diff_hard.bSelected) btn_start_active.Draw(gfx);
+        else btn_start_inactive.Draw(gfx);
 
         gfx.DrawCircleEmpty((int)pointer.x, (int)pointer.y, 6, Colors::Orange); //Pointer
 
