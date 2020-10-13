@@ -9,11 +9,11 @@ Defender::Defender(const Vec2& pos, const Model model, const Difficulty diff)
     SetDifficulty(diff);
     switch (model)
     {
-    case Model::Fighter:
+    case Model::Interceptor:
         width = 75.0f;
         height = 60.0f;
         speed = 480.0f;
-        health_max = 800.0f;
+        health_max = 400.0f;
         reloadTime_max = 0.08f;
         dmg = 8.0f;
         bulletSpeed = 600.0f;
@@ -68,7 +68,7 @@ void Defender::Draw(Graphics& gfx)
 
     switch (model)
     {
-    case Model::Fighter:
+    case Model::Interceptor:
         img::TestAircraft((int)rect.left, (int)rect.top, gfx);
         break;
     case Model::Destroyer:
@@ -191,7 +191,7 @@ void Defender::Shoot()
 
         switch (model)
         {
-        case Model::Fighter:
+        case Model::Interceptor:
             bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(left + 25.0f, top), bulletRadius), Vec2(0.0f, -1.0f), Colors::Cyan, bulletSpeed, dmg));
             bullets.push_back(std::make_unique<Bullet>(CircleF(Vec2(left + 50.0f, top), bulletRadius), Vec2(0.0f, -1.0f), Colors::Cyan, bulletSpeed, dmg));
             break;

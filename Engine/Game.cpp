@@ -94,7 +94,7 @@ void Game::UpdateModel(float dt)
         if (btn_diff_easy.bSelected) diff = Defender::Difficulty::Easy;
         else if (btn_diff_normal.bSelected) diff = Defender::Difficulty::Normal;
         else if (btn_diff_hard.bSelected) diff = Defender::Difficulty::Hard;
-        def = { Vec2(400.0f, 600.0f), Defender::Model::Fighter, diff };
+        def = { Vec2(400.0f, 600.0f), Defender::Model::Interceptor, diff };
         GameState = GameState::Playing;
         break;
 

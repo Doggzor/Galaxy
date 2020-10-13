@@ -18,7 +18,7 @@ public:
 	};
 	enum class Model
 	{
-		Fighter,
+		Interceptor,
 		Destroyer,
 		Battleship
 	};
@@ -42,7 +42,7 @@ private:
 
 	void Shoot();
 
-	Model model = Model::Fighter;
+	Model model = Model::Interceptor;
 	Vec2 pos = { 0, 0 };
 	Vec2 dir{ 0.0f,0.0f };
 	float width = 75.0f;
