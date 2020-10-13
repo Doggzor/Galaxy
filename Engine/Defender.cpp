@@ -13,7 +13,7 @@ Defender::Defender(const Vec2& pos, const Model model, const Difficulty diff)
         width = 75.0f;
         height = 60.0f;
         speed = 480.0f;
-        health_max = 400.0f;
+        health_max = 800.0f;
         reloadTime_max = 0.08f;
         dmg = 8.0f;
         bulletSpeed = 600.0f;
@@ -56,7 +56,7 @@ void Defender::Draw(Graphics& gfx)
 {
     RectF rect = { pos.x - width / 2.0f,  pos.x + width / 2.0f, pos.y - height / 2.0f, pos.y + height / 2.0f };
 
-    img::HP_Bar(Vec2((float)(gfx.ScreenLeft + 10), (float)(gfx.ScreenTop + 10)), 200.0f, 30.0f, health_max, health_current, gfx);
+    img::HP_Bar(Vec2((float)(gfx.ScreenLeft + 10), (float)(gfx.ScreenTop + 10)), 200.0f, 30.0f, health_max, health_current, gfx, true);
     //Shield
     img::Status_Bar(Vec2((float)(gfx.ScreenLeft + 10), (float)(gfx.ScreenTop + 45)), 200.0f, 30.0f, shield_max, shield_current, Colors::Gray, gfx);
 

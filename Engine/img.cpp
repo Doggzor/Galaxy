@@ -4529,7 +4529,7 @@ void img::Enemy_Mine(const Vec2& center, Graphics& gfx)
 
 }
 
-void img::HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHealth, float currentHealth, Graphics& gfx)
+void img::HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHealth, float currentHealth, Graphics& gfx, bool DivideSegments, float segmentHealth)
 {
 	//Colors (goes slowly from RED at very low HP to YELLOW at around half HP to GREEN at full HP)
 //Green ( equal to 255 if HP is 50% or over, then starts decreasing as HP decreases)
@@ -4551,6 +4551,13 @@ void img::HP_Bar(const Vec2& topleft, float maxWidth, float height, float maxHea
 	const int nHeight = (int)height;
 	if (fWidth < 1.0f && fWidth > 0.0f) nWidth = 1;
 	if(nWidth > 0) gfx.DrawRectDim(x, y, nWidth, nHeight, Colors::MakeRGB(R, G, 0));
+
+	if (DivideSegments)
+	{
+		int nSegmentWidth = (int)((maxWidth / maxHealth) * segmentHealth);
+		int nSegments = nWidth / nSegmentWidth;
+		for (int i = 0; i < nSegments; i++) gfx.DrawRectDim(x + nSegmentWidth * (i + 1), y, 1, nHeight, Colors::Black);
+	}
 }
 
 void img::Status_Bar(const Vec2& topleft, float maxWidth, float height, float maxValue, float currentValue, Color c, Graphics& gfx)
