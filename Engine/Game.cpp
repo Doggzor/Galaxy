@@ -150,7 +150,6 @@ void Game::UpdateModel(float dt)
     case Game::GameState::Playing:
 
         fElapsedTime += dt; //Measures time passed from the start of the game
-        fDistance += fWorldSpeed * dt; //Distance traveled
 
         //while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f))); //Infinite enemies just for testing
 
@@ -212,7 +211,7 @@ void Game::ComposeFrame()
     case GameState::Playing:
 
         space.Draw(gfx); //Background
-        numb.Draw(gfx.ScreenLeft + 20, gfx.ScreenBottom - 40, (int)fDistance, Colors::White, gfx);
+        numb.Draw(gfx.ScreenLeft + 20, gfx.ScreenBottom - 40, (int)space.GetDistance(), Colors::White, gfx);
         def.Draw(gfx); //Defender
         for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Defender bullets
 
@@ -247,7 +246,7 @@ void Game::ComposeFrame()
 
 void Game::SpawnEnemies()
 {
-    const int distance = (int)fDistance;
+    const int distance = (int)space.GetDistance();
     if (nWave < nWavesMax)
     {
         if (isSpawned[nWave]) nWave++;
