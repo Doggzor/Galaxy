@@ -42,6 +42,7 @@ void Game::Go()
 {
 
 	gfx.BeginFrame();
+    SpawnEnemies();
     float ElapsedTime = ft.Mark();
     while (ElapsedTime > 0.0f)
     {
@@ -149,10 +150,8 @@ void Game::UpdateModel(float dt)
     case Game::GameState::Playing:
 
         fElapsedTime += dt; //Measures time passed from the start of the game
-        nWave = -1 + (int)(fElapsedTime / 3.0f); //Increases the wave by 1 every 3 seconds (temporary)
-        SpawnWave(nWave);  //Spawn the current wave of enemies
 
-        while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f))); //Infinite enemies just for testing
+        //while(enemy.size() < 2) enemy.push_back(std::make_unique <Enemy>(Enemy::Model::test, Vec2(rng::rdm_float(330.0f, 830.0f), 50.0f))); //Infinite enemies just for testing
 
         space.Update(dt, gfx);
         def.Update(wnd.kbd, gfx, dt);
@@ -204,6 +203,7 @@ void Game::UpdateModel(float dt)
    
 }
 
+
 void Game::ComposeFrame()
 { 
     switch (GameState)
@@ -243,3 +243,47 @@ void Game::ComposeFrame()
     }
 }
 
+void Game::SpawnEnemies()
+{
+    if (nWave < nWavesMax)
+    {
+        if (isSpawned[nWave]) nWave++;
+
+        switch (nWave)
+        {
+        case 0:
+            if (fElapsedTime >= 2.0f)
+            {
+                SpawnEnemy(Enemy::Model::test, 400);
+                SpawnEnemy(Enemy::Model::test, 800);
+
+                isSpawned[nWave] = true;
+            }
+            break;
+        case 1:
+            if (fElapsedTime >= 4.0f)
+            {
+                SpawnEnemy(Enemy::Model::Mine, 200);
+                SpawnEnemy(Enemy::Model::Mine, 400);
+                SpawnEnemy(Enemy::Model::Mine, 600);
+                SpawnEnemy(Enemy::Model::Mine, 800);
+                SpawnEnemy(Enemy::Model::Mine, 1000);
+
+                isSpawned[nWave] = true;
+            }
+            break;
+        case 2:
+            if (fElapsedTime >= 7.0f)
+            {
+                SpawnEnemy(Enemy::Model::test, 300);
+                SpawnEnemy(Enemy::Model::test, 600);
+                SpawnEnemy(Enemy::Model::test, 900);
+
+                isSpawned[nWave] = true;
+            }
+            break;
+        default:
+            break;
+        }
+    }
+}
