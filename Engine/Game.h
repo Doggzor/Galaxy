@@ -62,6 +62,7 @@ private:
 	/********************************/
 	/*  User Variables              */
     FrameTimer ft;
+	Numbers numb;
 	float fWorldSpeed = 180.0f;
 	Space space;
 	enum class GameState
@@ -88,6 +89,7 @@ private:
 	std::vector < std::unique_ptr < Explosion > > explo; //Explosions (visual purposes)
 
 	float fElapsedTime = 0;
+	float fDistance = 0;
 
 	int nWave = -1; //Current wave of enemies
 	static constexpr int nWavesMax = 100;
