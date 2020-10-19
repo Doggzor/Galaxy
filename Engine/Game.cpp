@@ -163,6 +163,7 @@ void Game::UpdateModel(float dt)
             if (def.bullets[i]->isTargetHit(CircleF(enemy[j]->GetColCircle()))) //Check collision against all enemies
             {
                 enemy[j]->TakeDmg(def.GetDmg());
+                if (enemy[j]->GetHealth() <= 0) def.AddScore(enemy[j]->fScore); //Update score if enemy is killed;
                 explo.push_back(std::make_unique<Explosion>(def.bullets[i]->circle.center, Explosion::Size::Small)); //Create explosion at the site of impact
             }
             if (def.bullets[i]->bDeleted) def.bullets.erase(std::remove(def.bullets.begin(), def.bullets.end(), def.bullets[i])); //Delete bullets if needed
@@ -171,7 +172,11 @@ void Game::UpdateModel(float dt)
         for (int i = 0; i < enemy.size(); i++) //Update enemies
         {
             enemy[i]->Update(dt, gfx);
-            if (enemy[i]->hasCrashedInto(def.GetColCircle())) def.TakeDmg(enemy[i]->collision_dmg); //Check if enemy crashed into defender
+            if (enemy[i]->hasCrashedInto(def.GetColCircle()))  //Check if enemy crashed into defender
+            {
+                def.TakeDmg(enemy[i]->collision_dmg);
+                def.AddScore(enemy[i]->fScore);
+            }
             for (int j = 0; j < enemy[i]->bullets.size(); j++) //Update bullets for all enemies
             {
                 enemy[i]->bullets[j]->Update(dt, def.GetPos());
@@ -211,7 +216,7 @@ void Game::ComposeFrame()
     case GameState::Playing:
 
         space.Draw(gfx); //Background
-        numb.Draw(gfx.ScreenLeft + 20, gfx.ScreenBottom - 40, (int)space.GetDistance(), Colors::White, gfx);
+        numb.Draw(gfx.ScreenLeft + 20, gfx.ScreenBottom - 40, (int)space.GetDistance(), Colors::White, gfx); //Distance
         def.Draw(gfx); //Defender
         for (int i = 0; i < def.bullets.size(); i++) def.bullets[i]->Draw(gfx); //Defender bullets
 
@@ -222,6 +227,8 @@ void Game::ComposeFrame()
         }
 
         for (int i = 0; i < explo.size(); i++) explo[i]->Draw(gfx); //Explosions
+
+        numb.Draw(gfx.ScreenRight - 80, gfx.ScreenTop + 10, (int)def.GetScore(), Colors::White, gfx); //Score
 
         break;
 

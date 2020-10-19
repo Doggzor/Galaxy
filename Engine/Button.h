@@ -19,7 +19,7 @@ public:
 	{
 		bHoveredOver = button.isContaining(pointer);
 
-		if (bHoveredOver && kbd.KeyIsPressed(VK_RETURN)) bSelected = true;
+		if (bHoveredOver && (kbd.KeyIsPressed(VK_RETURN) || kbd.KeyIsPressed(VK_SPACE))) bSelected = true;
 	}
 	void Draw(Graphics& gfx)
 	{
