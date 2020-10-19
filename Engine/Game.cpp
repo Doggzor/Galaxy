@@ -254,7 +254,7 @@ void Game::SpawnEnemies()
         switch (nWave)
         {
         case 0:
-            if (distance >= 300)
+            if (distance >= 30)
             {
                 SpawnEnemy(Enemy::Model::test, 400);
                 SpawnEnemy(Enemy::Model::test, 800);
@@ -263,7 +263,7 @@ void Game::SpawnEnemies()
             }
             break;
         case 1:
-            if (distance >= 600)
+            if (distance >= 60)
             {
                 SpawnEnemy(Enemy::Model::Mine, 200);
                 SpawnEnemy(Enemy::Model::Mine, 400);
@@ -275,7 +275,7 @@ void Game::SpawnEnemies()
             }
             break;
         case 2:
-            if (distance >= 1200)
+            if (distance >= 120)
             {
                 SpawnEnemy(Enemy::Model::test, 300);
                 SpawnEnemy(Enemy::Model::test, 600);
