@@ -86,19 +86,19 @@ void Game::UpdateModel(float dt)
         }
 
         //Defender selection
-        btn_interceptor.Update(wnd.kbd, pointer);
+        btn_interceptor.Update(wnd.kbd, pointer, dt);
         if (btn_interceptor.bSelected)
         {
             btn_destroyer.bSelected = false;
             btn_battleship.bSelected = false;
         }
-        btn_destroyer.Update(wnd.kbd, pointer);
+        btn_destroyer.Update(wnd.kbd, pointer, dt);
         if (btn_destroyer.bSelected)
         {
             btn_interceptor.bSelected = false;
             btn_battleship.bSelected = false;
         }
-        btn_battleship.Update(wnd.kbd, pointer);
+        btn_battleship.Update(wnd.kbd, pointer, dt);
         if (btn_battleship.bSelected)
         {
             btn_interceptor.bSelected = false;
@@ -106,19 +106,19 @@ void Game::UpdateModel(float dt)
         }
 
         //Difficulty selection
-        btn_diff_easy.Update(wnd.kbd, pointer);
+        btn_diff_easy.Update(wnd.kbd, pointer, dt);
         if (btn_diff_easy.bSelected)
         {
             btn_diff_normal.bSelected = false;
             btn_diff_hard.bSelected = false;
         }
-        btn_diff_normal.Update(wnd.kbd, pointer);
+        btn_diff_normal.Update(wnd.kbd, pointer, dt);
         if (btn_diff_normal.bSelected)
         {
             btn_diff_easy.bSelected = false;
             btn_diff_hard.bSelected = false;
         }
-        btn_diff_hard.Update(wnd.kbd, pointer);
+        btn_diff_hard.Update(wnd.kbd, pointer, dt);
         if (btn_diff_hard.bSelected)
         {
             btn_diff_easy.bSelected = false;
@@ -128,7 +128,7 @@ void Game::UpdateModel(float dt)
         //Able to start game only if aircraft and difficulty is selected
         if ((btn_interceptor.bSelected || btn_destroyer.bSelected || btn_battleship.bSelected)
             && (btn_diff_easy.bSelected || btn_diff_normal.bSelected || btn_diff_hard.bSelected))
-            btn_start_active.Update(wnd.kbd, pointer);
+            btn_start_active.Update(wnd.kbd, pointer, dt);
         if (btn_start_active.bSelected) GameState = GameState::Loading;
 
         break;
@@ -244,6 +244,37 @@ void Game::ComposeFrame()
             && (btn_diff_easy.bSelected || btn_diff_normal.bSelected || btn_diff_hard.bSelected))
             btn_start_active.Draw(gfx);
         else btn_start_inactive.Draw(gfx);
+        const float StatsBar_MaxWidth = 120.0f;
+        const float StatsBar_Height = 10.0f;
+        const float StatsBar_MaxValue = 100.0f;
+        const float StatsBar_SegmentValue = 10.0f;
+        if (btn_interceptor.bSelected || btn_interceptor.bHoveredOver)
+        {
+            gfx.DrawSprite(260, 150, Surface("btn_Interceptor_name.bmp"));
+            gfx.DrawSprite(190, 300, Surface("btn_Defender_stats.bmp"));
+            img::HP_Bar({ 270.0f, 300.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.125f * StatsBar_MaxValue * btn_interceptor.fBarPercentage, gfx, true, 10.0f); //Damage
+            img::HP_Bar({ 270.0f, 315.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, StatsBar_MaxValue * btn_interceptor.fBarPercentage, gfx, true, 10.0f); //Attack Speed
+            img::HP_Bar({ 270.0f, 330.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.333f * StatsBar_MaxValue * btn_interceptor.fBarPercentage, gfx, true, 10.0f); //Defense
+            img::HP_Bar({ 270.0f, 345.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.83f * StatsBar_MaxValue * btn_interceptor.fBarPercentage, gfx, true, 10.0f); //Move Speed
+        }
+        if (btn_destroyer.bSelected || btn_destroyer.bHoveredOver)
+        {
+            gfx.DrawSprite(530, 150, Surface("btn_Destroyer_name.bmp"));
+            gfx.DrawSprite(460, 300, Surface("btn_Defender_stats.bmp"));
+            img::HP_Bar({ 540.0f, 300.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.92f * StatsBar_MaxValue * btn_destroyer.fBarPercentage, gfx, true, 10.0f); //Damage
+            img::HP_Bar({ 540.0f, 315.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.24f * StatsBar_MaxValue * btn_destroyer.fBarPercentage, gfx, true, 10.0f); //Attack Speed
+            img::HP_Bar({ 540.0f, 330.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.5f * StatsBar_MaxValue * btn_destroyer.fBarPercentage, gfx, true, 10.0f); //Defense
+            img::HP_Bar({ 540.0f, 345.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.54f * StatsBar_MaxValue * btn_destroyer.fBarPercentage, gfx, true, 10.0f); //Move Speed
+        }
+        if (btn_battleship.bSelected || btn_battleship.bHoveredOver)
+        {
+            gfx.DrawSprite(800, 150, Surface("btn_Battleship_name.bmp"));
+            gfx.DrawSprite(730, 300, Surface("btn_Defender_stats.bmp"));
+            img::HP_Bar({ 810.0f, 300.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.42f * StatsBar_MaxValue * btn_battleship.fBarPercentage, gfx, true, 10.0f); //Damage
+            img::HP_Bar({ 810.0f, 315.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.42f * StatsBar_MaxValue * btn_battleship.fBarPercentage, gfx, true, 10.0f); //Attack Speedd
+            img::HP_Bar({ 810.0f, 330.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, StatsBar_MaxValue * btn_battleship.fBarPercentage, gfx, true, 10.0f); //Defense
+            img::HP_Bar({ 810.0f, 345.0f }, StatsBar_MaxWidth, StatsBar_Height, StatsBar_MaxValue, 0.27f * StatsBar_MaxValue * btn_battleship.fBarPercentage, gfx, true, 10.0f); //Move Speed
+        }
 
         gfx.DrawCircleEmpty((int)pointer.x, (int)pointer.y, 6, Colors::Orange); //Pointer
 

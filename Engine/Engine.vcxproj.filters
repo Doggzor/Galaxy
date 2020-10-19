@@ -281,15 +281,6 @@
     <Image Include="btn_StartInactive.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="btn_Battleship_hovered.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="btn_Battleship_selected.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="btn_Battleship_unselected.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="btn_Destroyer_hovered.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -306,6 +297,27 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="btn_Interceptor_unselected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Battleship_hovered.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Battleship_selected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Battleship_unselected.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Battleship_name.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Destroyer_name.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Interceptor_name.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="btn_Defender_stats.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
